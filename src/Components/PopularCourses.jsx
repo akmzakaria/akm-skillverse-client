@@ -19,7 +19,7 @@ const PopularCourses = ({ data }) => {
             key={course.price}
             className="flex flex-col shadow rounded-xl w-[300px] md:w-[300px] gap-2 p-4 bg-base-200  mt-5"
           >
-            <img className="w-full rounded-2xl" src={'/banner.webp'} />
+            <img className="w-full rounded-2xl" src={course.image_url} />
             <h3 className="  text-sm font-medium md:text-xl">{course.title}</h3>
             <p className=" text-xs">Price: {course.price} $</p>
 

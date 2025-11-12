@@ -79,7 +79,7 @@ const Navbar = () => {
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-5 w-5 -mx-3"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -106,7 +106,7 @@ const Navbar = () => {
               )}
             </ul>
           </div>
-          <Link to={'/'} className="btn btn-ghost -mx-5 text-sm md:text-xl">
+          <Link to={'/'} className="btn btn-ghost -mx-4 text-xl md:text-xl">
             <img className="w-6 md:w-8" src="/logo5.png" alt="" />
             AKM SkillVerse
           </Link>
@@ -166,15 +166,12 @@ const Navbar = () => {
           {user ? (
             <Link
               onClick={handleLogOut}
-              className="btn btn-sm md:btn-neutral bg-primary text-white font-bold rounded-full"
+              className="btn btn-outline bg-primary text-white font-bold rounded-full"
             >
               Log Out
             </Link>
           ) : (
-            <Link
-              to={'/login'}
-              className="btn btn-sm md:btn-neutral font-bold bg-secondary text-white rounded-full"
-            >
+            <Link to={'/login'} className="btn bg-secondary font-bold text-white rounded-full">
               Login
             </Link>
           )}
