@@ -27,12 +27,12 @@ const CourseDetails = () => {
         <main>
           <div className="min-h-screen pb-5">
             <div className="max-w-5xl mx-auto">
-              <title>ToyTopia - Toy Details</title>
+              <title>AKM SkillVerse - Course Details</title>
               {/* toy details */}
               <div className="flex md:flex-row flex-col items-center md:gap-10 gap-5 p-5 md:p-15">
                 <img
                   className="rounded-lg object-cover h-60 w-60 md:h-80 md:w-80 shadow-lg"
-                  src={'/banner.webp'}
+                  src={fltData.image_url}
                 />
 
                 <div className="flex flex-col gap-3 md:gap-5">
