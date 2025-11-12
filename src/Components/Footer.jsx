@@ -7,7 +7,7 @@ import { CgMail } from 'react-icons/cg'
 
 const Footer = () => {
   return (
-    <div className="bg-black/15">
+    <div className="bg-black/15 mt-10">
       <div className="flex md:flex-row flex-col md:justify-around text-center max-w-[1400px] mx-auto gap-8 py-10">
         <div className="flex-2 flex-col">
           <div className="flex items-center gap-1 justify-center mb-3">

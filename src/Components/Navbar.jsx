@@ -13,7 +13,7 @@ const Navbar = () => {
         <NavLink to={'/'}>Home</NavLink>
       </li>
       <li>
-        <NavLink to={'/mycourses'}>My Courses</NavLink>
+        <NavLink to={'/allcourses'}>All Courses</NavLink>
       </li>
     </nav>
   )
@@ -65,6 +65,12 @@ const Navbar = () => {
       })
   }
 
+  const handleRedirect = () => {
+    if (!user) {
+      navigate('/login')
+    }
+  }
+
   return (
     <div>
       <div className="navbar bg-base-100 shadow-sm">
@@ -92,10 +98,12 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               {links1}
-              <li>
-                <a>Dashboard</a>
-                <ul className="p-2">{links2}</ul>
-              </li>
+              {user && (
+                <li>
+                  <a>Dashboard</a>
+                  <ul className="p-2">{links2}</ul>
+                </li>
+              )}
             </ul>
           </div>
           <Link to={'/'} className="btn btn-ghost text-xl">
@@ -106,21 +114,64 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             {links1}
-            <li>
-              <details>
-                <summary>Dashboard</summary>
-                <ul className="p-2 w-50">{links2}</ul>
-              </details>
-            </li>
+            {user && (
+              <li>
+                <details>
+                  <summary onClick={handleRedirect}>Dashboard</summary>
+                  <ul className="p-2 w-50 z-50">{links2}</ul>
+                </details>
+              </li>
+            )}
           </ul>
         </div>
         <div className="navbar-end">
+          {/* theme controller */}
+          <div className="mr-5">
+            <label className="toggle text-base-content">
+              <input type="checkbox" value="light" className="theme-controller" />
+
+              <svg aria-label="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  strokeWidth="2"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                </g>
+              </svg>
+
+              <svg aria-label="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  strokeWidth="2"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <path d="M12 2v2"></path>
+                  <path d="M12 20v2"></path>
+                  <path d="m4.93 4.93 1.41 1.41"></path>
+                  <path d="m17.66 17.66 1.41 1.41"></path>
+                  <path d="M2 12h2"></path>
+                  <path d="M20 12h2"></path>
+                  <path d="m6.34 17.66-1.41 1.41"></path>
+                  <path d="m19.07 4.93-1.41 1.41"></path>
+                </g>
+              </svg>
+            </label>
+          </div>
           {user ? (
-            <Link onClick={handleLogOut} className="btn bg-accent">
+            <Link
+              onClick={handleLogOut}
+              className="btn bg-primary text-white font-bold rounded-full"
+            >
               Log Out
             </Link>
           ) : (
-            <Link to={'/login'} className="btn bg-base-300">
+            <Link to={'/login'} className="btn font-bold bg-secondary text-white rounded-full">
               Login
             </Link>
           )}

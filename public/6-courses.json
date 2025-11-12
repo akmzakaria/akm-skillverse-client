@@ -1,0 +1,44 @@
+[
+  {
+    "title": "Web Development Bootcamp",
+    "price": 49.99,
+    "image_url": "https://cdn.skillverse.com/images/web-dev.jpg",
+    "rating": 4.8,
+    "enrolled": 1250
+  },
+  {
+    "title": "Mastering Python Programming",
+    "price": 39.99,
+    "image_url": "https://cdn.skillverse.com/images/python-course.jpg",
+    "rating": 4.7,
+    "enrolled": 980
+  },
+  {
+    "title": "UI/UX Design Fundamentals",
+    "price": 44.99,
+    "image_url": "https://cdn.skillverse.com/images/uiux.jpg",
+    "rating": 4.6,
+    "enrolled": 860
+  },
+  {
+    "title": "Digital Marketing Essentials",
+    "price": 29.99,
+    "image_url": "https://cdn.skillverse.com/images/marketing.jpg",
+    "rating": 4.5,
+    "enrolled": 1540
+  },
+  {
+    "title": "Data Science with R",
+    "price": 59.99,
+    "image_url": "https://cdn.skillverse.com/images/datascience.jpg",
+    "rating": 4.9,
+    "enrolled": 720
+  },
+  {
+    "title": "Video Editing for Beginners",
+    "price": 24.99,
+    "image_url": "https://cdn.skillverse.com/images/video-editing.jpg",
+    "rating": 4.6,
+    "enrolled": 1120
+  }
+]

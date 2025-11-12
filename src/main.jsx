@@ -4,7 +4,6 @@ import './index.css'
 import { createBrowserRouter } from 'react-router'
 import { RouterProvider } from 'react-router/dom'
 import HomeLayout from './Layout/HomeLayout'
-import MyCourses from './Components/MyCourses'
 import MyEnrolledCourses from './Components/MyEnrolledCourses'
 import AddCourse from './Components/AddCourse'
 import MyAddedCourses from './Components/MyAddedCourses'
@@ -12,6 +11,10 @@ import Login from './Pages/Login'
 import AuthProvider from './Provider/AuthProvider'
 import ForgotPass from './Pages/ForgotPass'
 import Register from './Pages/Register'
+import PrivateRoute from './Provider/PrivateRoute'
+import Home from './Components/Home'
+import AllCourses from './Components/AllCourses'
+import CourseDetails from './Components/CourseDetails'
 
 const router = createBrowserRouter([
   {
@@ -19,20 +22,38 @@ const router = createBrowserRouter([
     Component: HomeLayout,
     children: [
       {
-        path: '/mycourses',
-        element: <MyCourses></MyCourses>,
+        path: '/',
+        loader: () => fetch('http://localhost:3000/courses'),
+        Component: Home,
+      },
+      {
+        path: '/allcourses',
+        loader: () => fetch('http://localhost:3000/courses'),
+        Component: AllCourses,
       },
       {
         path: '/myenrolledcourses',
-        element: <MyEnrolledCourses></MyEnrolledCourses>,
+        element: (
+          <PrivateRoute>
+            <MyEnrolledCourses></MyEnrolledCourses>
+          </PrivateRoute>
+        ),
       },
       {
         path: '/addcourse',
-        element: <AddCourse></AddCourse>,
+        element: (
+          <PrivateRoute>
+            <AddCourse></AddCourse>
+          </PrivateRoute>
+        ),
       },
       {
         path: '/myaddedcourses',
-        element: <MyAddedCourses></MyAddedCourses>,
+        element: (
+          <PrivateRoute>
+            <MyAddedCourses></MyAddedCourses>
+          </PrivateRoute>
+        ),
       },
       {
         path: '/login',
@@ -45,6 +66,15 @@ const router = createBrowserRouter([
       {
         path: '/register',
         Component: Register,
+      },
+      {
+        path: '/coursedetails/:id',
+        loader: () => fetch('http://localhost:3000/courses'),
+        element: (
+          <PrivateRoute>
+            <CourseDetails></CourseDetails>
+          </PrivateRoute>
+        ),
       },
     ],
   },

@@ -66,30 +66,30 @@ const Login = () => {
     <div className="hero min-h-screen">
       <title>AKM SkillVerse - Login</title>
       <div className="hero-content flex-col">
-        <h1 className="text-3xl font-bold text-black mb-4">Login now!</h1>
+        <h1 className="text-3xl font-bold   mb-4">Login now!</h1>
         <div className="card w-full max-w-sm bg-black/15 backdrop-blur-lg rounded-2xl border border-blue-500/30 shadow-2xl p-6">
           <form onSubmit={handleLogIn} className="flex flex-col gap-3">
-            <label className="text-black">Email</label>
+            <label className=" ">Email</label>
             <input
               name="email"
               type="email"
               placeholder="Email"
               value={emailInput}
               onChange={(e) => setEmailInput(e.target.value)}
-              className="input bg-transparent border border-gray-600 text-black rounded-lg placeholder-gray-400"
+              className="input bg-transparent border border-gray-600   rounded-lg placeholder-gray-400"
               required
             />
 
-            <label className="text-black">Password</label>
+            <label className=" ">Password</label>
             <div className="relative">
               <input
                 name="password"
                 type={show ? 'text' : 'password'}
                 placeholder="Password"
-                className="input bg-transparent border border-gray-600 text-black rounded-lg placeholder-gray-400 w-full"
+                className="input bg-transparent border border-gray-600   rounded-lg placeholder-gray-400 w-full"
                 required
               />
-              <button onClick={handleToggleEye} className="absolute top-3 right-3 text-black">
+              <button onClick={handleToggleEye} className="absolute top-3 right-3  ">
                 {show ? <LuEyeClosed /> : <LuEye />}
               </button>
             </div>
@@ -98,18 +98,18 @@ const Login = () => {
             <Link
               to="/forgotpassword"
               state={{ email: emailInput }}
-              className="text-black text-xs link link-hover"
+              className="  text-xs link link-hover"
             >
               Forgot password?
             </Link>
 
-            <button type="submit" className="btn btn-primary rounded-full w-full">
+            <button type="submit" className="btn btn-secondary rounded-full w-full">
               Login
             </button>
 
             <button
               onClick={handleSignInGoogle}
-              className="btn bg-white text-black rounded-full border-[#e5e5e5] w-full mt-2 flex items-center justify-center gap-2"
+              className="btn bg-white  text-black rounded-full border-[#e5e5e5] w-full mt-2 flex items-center justify-center gap-2"
             >
               <svg
                 aria-label="Google logo"
@@ -139,7 +139,7 @@ const Login = () => {
             </button>
           </form>
 
-          <p className="text-black mt-4 text-sm text-center">
+          <p className="  mt-4 text-sm text-center">
             Don't have an account?{' '}
             <Link to="/register" className="underline text-blue-700">
               Register Now

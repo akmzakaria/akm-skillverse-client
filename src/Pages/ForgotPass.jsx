@@ -53,7 +53,7 @@ const ForgotPass = () => {
         </div>
         <div className="text-center">
           <p className="text-gray-400">Or</p>
-          <Link to={-1} className="btn btn-outline btn-primary rounded-full mt-2">
+          <Link to={-1} className="btn btn-outline btn-secondary rounded-full mt-2">
             Go Back
           </Link>
         </div>
