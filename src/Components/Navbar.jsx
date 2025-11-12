@@ -106,8 +106,8 @@ const Navbar = () => {
               )}
             </ul>
           </div>
-          <Link to={'/'} className="btn btn-ghost text-xl">
-            <img className="w-8" src="/logo5.png" alt="" />
+          <Link to={'/'} className="btn btn-ghost -mx-5 text-sm md:text-xl">
+            <img className="w-6 md:w-8" src="/logo5.png" alt="" />
             AKM SkillVerse
           </Link>
         </div>
@@ -126,7 +126,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           {/* theme controller */}
-          <div className="mr-5">
+          <div className="mr-1 md:mr-5">
             <label className="toggle text-base-content">
               <input type="checkbox" value="light" className="theme-controller" />
 

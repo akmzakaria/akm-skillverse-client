@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="flex md:flex-row flex-col md:justify-around text-center max-w-[1400px] mx-auto gap-8 py-10">
         <div className="flex-2 flex-col">
           <div className="flex items-center gap-1 justify-center mb-3">
-            <img className="w-8" src="/logo5.png" alt="" />
+            <img className="w-6 md:w-8" src="/logo5.png" alt="" />
             <h2 className="font-bold ">AKM SkillVerse</h2>
           </div>
 

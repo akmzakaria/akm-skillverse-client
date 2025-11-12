@@ -45,7 +45,7 @@ const AllCourses = () => {
 
   return (
     <div>
-      <h3 className="text-4xl mt-10 font-bold text-center">All Courses</h3>
+      <h3 className="text-xl md:text-4xl mt-10 font-bold text-center">All Courses</h3>
 
       <div className="overflow-x-auto md:px-30">
         <table className="table">
@@ -66,17 +66,20 @@ const AllCourses = () => {
                   <div className="flex items-center gap-3">
                     <div className="avatar">
                       <div className="mask mask-squircle h-12 w-12">
-                        <img src="/banner.webp" alt="Avatar Tailwind CSS Component" />
+                        <img src={course.image_url} alt="Avatar Tailwind CSS Component" />
                       </div>
                     </div>
                     <div>
-                      <div className="font-bold">{course.title}</div>
+                      <div className="text-xs md:text-[1rem] font-bold">{course.title}</div>
                     </div>
                   </div>
                 </td>
-                <td>{course.price} $</td>
+                <td className="text-xs md:text-[1rem]">{course.price} $</td>
                 <td>
-                  <Link to={`/coursedetails/${course._id}`} className="text-secondary">
+                  <Link
+                    to={`/coursedetails/${course._id}`}
+                    className="text-secondary text-xs md:text-[1rem]"
+                  >
                     View Details
                   </Link>
                 </td>

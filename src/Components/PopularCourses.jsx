@@ -11,9 +11,9 @@ const PopularCourses = ({ data }) => {
 
   return (
     <div>
-      <h3 className="text-4xl mt-10 font-bold text-center">Popular Courses</h3>
+      <h3 className="text-xl md:text-4xl mt-10 font-bold text-center">Popular Courses</h3>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 md:max-w-[1000px] max-w-[300px] mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center md:max-w-[1400px] mx-auto">
         {featuredCourses.map((course) => (
           <div
             key={course.price}

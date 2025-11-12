@@ -15,6 +15,7 @@ import PrivateRoute from './Provider/PrivateRoute'
 import Home from './Components/Home'
 import AllCourses from './Components/AllCourses'
 import CourseDetails from './Components/CourseDetails'
+import EditCourse from './Components/EditCourse'
 
 const router = createBrowserRouter([
   {
@@ -23,12 +24,12 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        loader: () => fetch('http://localhost:3000/courses'),
+        loader: () => fetch('https://akm-skillverse-server.vercel.app/courses'),
         Component: Home,
       },
       {
         path: '/allcourses',
-        loader: () => fetch('http://localhost:3000/courses'),
+        loader: () => fetch('https://akm-skillverse-server.vercel.app/courses'),
         Component: AllCourses,
       },
       {
@@ -56,6 +57,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: '/editcourse/:id',
+        element: (
+          <PrivateRoute>
+            <EditCourse></EditCourse>
+          </PrivateRoute>
+        ),
+      },
+      {
         path: '/login',
         Component: Login,
       },
@@ -69,7 +78,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/coursedetails/:id',
-        loader: () => fetch('http://localhost:3000/courses'),
+        loader: () => fetch('https://akm-skillverse-server.vercel.app/courses'),
         element: (
           <PrivateRoute>
             <CourseDetails></CourseDetails>

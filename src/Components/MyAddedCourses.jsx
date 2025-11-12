@@ -28,7 +28,7 @@ const MyAddedCourses = () => {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/myaddedcourses/${_id}`, {
+        fetch(`https://akm-skillverse-server.vercel.app/myaddedcourses/${_id}`, {
           method: 'DELETE',
         })
           .then((res) => res.json())
@@ -53,7 +53,7 @@ const MyAddedCourses = () => {
   return (
     <div>
       <title>AKM SkillVerse - My Added Courses</title>
-      <h3 className="text-3xl font-bold text-center my-5">My Added Courses</h3>
+      <h3 className="text-xl md:text-3xl font-bold text-center my-5">My Added Courses</h3>
       <div className="overflow-x-auto md:px-30">
         <table className="table">
           {/* head */}
@@ -80,14 +80,17 @@ const MyAddedCourses = () => {
                       </div>
                     </div>
                     <div>
-                      <div className="font-bold">{course.title}</div>
+                      <div className="font-bold text-xs md:text-[1rem]">{course.title}</div>
                     </div>
                   </div>
                 </td>
                 <td>{course.price} $</td>
 
                 <td>
-                  <Link to={`/coursedetails/${course._id}`} className="text-secondary">
+                  <Link
+                    to={`/coursedetails/${course._id}`}
+                    className="text-secondary text-xs md:text-[1rem]"
+                  >
                     View Details
                   </Link>
                 </td>
@@ -102,7 +105,9 @@ const MyAddedCourses = () => {
                 </td>
 
                 <td>
-                  <button className="btn btn-xs">Edit Course</button>
+                  <Link to={`/editcourse/${course._id}`} className="btn btn-xs btn-outline">
+                    Edit
+                  </Link>
                 </td>
               </tr>
             ))}
