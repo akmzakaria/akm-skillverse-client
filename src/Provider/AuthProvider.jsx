@@ -36,7 +36,7 @@ const AuthProvider = ({ children }) => {
     })
   }
 
-  //  Login
+  // Login
   const userLogIn = (email, password) => {
     setLoading(true)
     return signInWithEmailAndPassword(auth, email, password).then((res) => {
@@ -50,7 +50,7 @@ const AuthProvider = ({ children }) => {
     })
   }
 
-  //  Google Login
+  // Google Login
   const googleSignIn = () => {
     setLoading(true)
     return signInWithPopup(auth, googleProvider).then((res) => {
