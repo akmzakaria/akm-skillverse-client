@@ -10,7 +10,6 @@ import {
   signOut,
   updateProfile,
 } from 'firebase/auth'
-import Swal from 'sweetalert2'
 import app from '../Firebase/Firebase'
 
 export const AuthContext = createContext(null)
@@ -20,65 +19,32 @@ const googleProvider = new GoogleAuthProvider()
 
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState(null)
 
-  // Register
+  const [user, setUser] = useState(null)
+  // console.log(user);
+
   const createUser = (email, password) => {
     setLoading(true)
-    return createUserWithEmailAndPassword(auth, email, password).then((res) => {
-      Swal.fire({
-        title: 'Registration Successful ',
-        text: 'Welcome to the platform!',
-        icon: 'success',
-        confirmButtonColor: '#3085d6',
-      })
-      return res
-    })
+    return createUserWithEmailAndPassword(auth, email, password)
   }
 
-  // Login
   const userLogIn = (email, password) => {
     setLoading(true)
-    return signInWithEmailAndPassword(auth, email, password).then((res) => {
-      Swal.fire({
-        title: 'Logged in Successfully',
-        text: 'Welcome back!',
-        icon: 'success',
-        confirmButtonColor: '#3085d6',
-      })
-      return res
-    })
+    return signInWithEmailAndPassword(auth, email, password)
   }
 
-  // Google Login
   const googleSignIn = () => {
     setLoading(true)
-    return signInWithPopup(auth, googleProvider).then((res) => {
-      Swal.fire({
-        title: 'Logged in Successfully',
-        text: 'Welcome back!',
-        icon: 'success',
-        confirmButtonColor: '#3085d6',
-      })
-      return res
-    })
-  }
-
-  // Logout
-  const logOut = () => {
-    return signOut(auth).then(() => {
-      Swal.fire({
-        title: 'Logged Out Successfully',
-        text: 'You have successfully logged out.',
-        icon: 'info',
-        confirmButtonColor: '#3085d6',
-      })
-    })
+    return signInWithPopup(auth, googleProvider)
   }
 
   const updateUser = (updatedData) => {
     setLoading(true)
     return updateProfile(auth.currentUser, updatedData)
+  }
+
+  const logOut = () => {
+    return signOut(auth)
   }
 
   const fotgotpass = (email) => {
@@ -90,7 +56,9 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser)
       setLoading(false)
     })
-    return () => unsubscribe()
+    return () => {
+      unsubscribe()
+    }
   }, [])
 
   const authData = {
@@ -107,7 +75,7 @@ const AuthProvider = ({ children }) => {
     fotgotpass,
   }
 
-  return <AuthContext.Provider value={authData}>{children}</AuthContext.Provider>
+  return <AuthContext value={authData}>{children}</AuthContext>
 }
 
 export default AuthProvider
