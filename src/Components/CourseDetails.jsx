@@ -128,7 +128,7 @@ const CourseDetails = () => {
                       <textarea
                         name="Feedback"
                         className="w-full px-4 py-3 border border-secondary rounded-lg  placeholder-gray-400 focus:ring-2 focus:ring-primary outline-none"
-                        placeholder="Enter your name"
+                        placeholder="Enter your feedback"
                         rows={5}
                         required
                       />
