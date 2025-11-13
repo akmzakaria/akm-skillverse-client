@@ -4,22 +4,24 @@ import useAxios from '../Hooks/useAxios'
 import Swal from 'sweetalert2'
 
 const AddCourse = () => {
-  const axiosInstance = useAxios()
   const { user } = use(AuthContext)
+  const axiosInstance = useAxios()
+
+  // console.log(user)
 
   const handleAddCourse = (e) => {
     e.preventDefault()
     const title = e.target.title.value
-    const image = e.target.image.value
+    const image_url = e.target.image_url.value
     const price = e.target.price.value
     const duration = e.target.duration.value
     const category = e.target.category.value
     const description = e.target.description.value
-    console.log(title, image, price, duration, category, description)
+    // console.log(title, image, price, duration, category, description)
 
     const newCourse = {
       title,
-      image,
+      image_url,
       price,
       duration,
       category,
@@ -28,7 +30,7 @@ const AddCourse = () => {
     }
 
     axiosInstance.post('/courses', newCourse).then((data) => {
-      console.log(data.data)
+      // console.log(data.data)
       if (data.data.insertedId) {
         Swal.fire({
           position: 'top-end',
@@ -48,24 +50,64 @@ const AddCourse = () => {
       <div className="lg:w-1/2 mx-auto px-10">
         <form className="" onSubmit={handleAddCourse}>
           <fieldset className="fieldset">
+            {/* instructor details */}
+            <label className="">Instructor Name</label>
+            <input
+              type="text"
+              name="name"
+              className="input w-full"
+              placeholder="Enter a name"
+              value={user.displayName}
+              required
+            />
+
+            <label className="">Instructor Photo URL</label>
+            <input
+              type="text"
+              name="photo"
+              className="input w-full"
+              placeholder="Enter a Photo URL"
+              value={user.photoURL}
+              required
+            />
+
+            <label className="">Email</label>
+            <input
+              type="email"
+              name="email"
+              className="input w-full"
+              placeholder="Enter an email"
+              value={user.email}
+              required
+            />
+
+            {/* ------------------ */}
             <label className="">Title</label>
             <input
               type="text"
               name="title"
               className="input w-full"
-              placeholder="Enter a itle"
+              placeholder="Enter a title"
               required
             />
+
             <label className="">Image URL</label>
             <input
               type="text"
-              name="image"
+              name="image_url"
               className="input w-full"
               placeholder="Enter an image URL"
+              required
             />
 
             <label className="">Price</label>
-            <input type="text" name="price" className="input w-full" placeholder="Price" required />
+            <input
+              type="number"
+              name="price"
+              className="input w-full"
+              placeholder="Price"
+              required
+            />
 
             <label className="">Duration</label>
             <input

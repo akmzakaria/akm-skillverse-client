@@ -1,8 +1,9 @@
-import { useNavigate, useParams } from 'react-router'
+import { useLoaderData, useNavigate, useParams } from 'react-router'
 import useAxios from '../Hooks/useAxios'
 import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../Provider/AuthProvider'
 import Swal from 'sweetalert2'
+import Loading from '../Pages/Loading'
 
 const EditCourse = () => {
   const { id } = useParams()
@@ -11,14 +12,17 @@ const EditCourse = () => {
   const [course, setCourse] = useState([])
   const { user } = useContext(AuthContext)
 
+  const data = useLoaderData()
+  const fltData = data.find((d) => d._id === id)
+
   useEffect(() => {
     if (user?.email) {
       instance
-        .get(`/myaddedcourses/${id}?email=${user.email}`)
+        .get(`/myaddedcourses/?email=${user.email}`)
         .then((res) => setCourse(res.data))
         .catch((err) => console.error('Fetch error:', err))
     }
-  }, [id, user, instance])
+  }, [user, instance])
 
   const handleUpdate = async (e) => {
     e.preventDefault()
@@ -50,7 +54,7 @@ const EditCourse = () => {
         Swal.fire({
           icon: 'info',
           title: 'No changes made!',
-          text: 'You didn’t update anything.',
+          text: "You didn't update anything.",
         })
       }
     } catch (error) {
@@ -64,7 +68,7 @@ const EditCourse = () => {
   }
 
   if (!course) {
-    return <div className="text-center mt-10 text-lg">Loading course data...</div>
+    return <Loading></Loading>
   }
 
   return (
@@ -74,7 +78,7 @@ const EditCourse = () => {
       <form onSubmit={handleUpdate} className="space-y-4">
         <input
           name="title"
-          defaultValue={course.title}
+          defaultValue={fltData.title}
           placeholder="Course Title"
           className="input input-bordered w-full"
           required
@@ -82,7 +86,7 @@ const EditCourse = () => {
 
         <input
           name="image_url"
-          defaultValue={course.image_url}
+          defaultValue={fltData.image_url}
           placeholder="Image URL"
           className="input input-bordered w-full"
           required
@@ -91,31 +95,31 @@ const EditCourse = () => {
         <input
           name="price"
           type="number"
-          defaultValue={course.price}
-          placeholder="Price ($)"
+          defaultValue={fltData.price}
+          placeholder="Enter a price"
           className="input input-bordered w-full"
           required
         />
 
         <input
           name="duration"
-          defaultValue={course.duration}
-          placeholder="Duration (e.g., 6 weeks)"
+          defaultValue={fltData.duration}
+          placeholder="Course duration"
           className="input input-bordered w-full"
           required
         />
 
         <input
           name="category"
-          defaultValue={course.category}
-          placeholder="Category (e.g., Web Development)"
+          defaultValue={fltData.category}
+          placeholder="Enter a category"
           className="input input-bordered w-full"
           required
         />
 
         <textarea
           name="description"
-          defaultValue={course.description}
+          defaultValue={fltData.description}
           placeholder="Course Description"
           className="textarea textarea-bordered w-full"
           rows="4"

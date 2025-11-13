@@ -1,10 +1,16 @@
-import React, { useState } from 'react'
+import React, { use, useState } from 'react'
 import { BiSend } from 'react-icons/bi'
 import { FaStar } from 'react-icons/fa6'
 import { MdEventAvailable, MdOutlinePriceCheck } from 'react-icons/md'
 import { Link, useLoaderData, useParams } from 'react-router'
+import Swal from 'sweetalert2'
+import useAxios from '../Hooks/useAxios'
+import { AuthContext } from '../Provider/AuthProvider'
 
 const CourseDetails = () => {
+  const { user } = use(AuthContext)
+  const axiosInstance = useAxios()
+
   const data = useLoaderData()
 
   const { id } = useParams()
@@ -16,9 +22,43 @@ const CourseDetails = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setSuccess('Successfully Submitted!')
+    setSuccess('Successfully Sent!')
     e.target.reset()
     setTimeout(() => setSuccess(''), 5000)
+  }
+
+  const handleEnroll = (course) => {
+    if (!user?.email) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Please log in to enroll!',
+      })
+      return
+    }
+
+    const enrollmentData = {
+      courseId: course._id,
+      title: course.title,
+      price: course.price,
+      email: user.email,
+    }
+
+    axiosInstance.post('/enrolled', enrollmentData).then((res) => {
+      // console.log(res.data)
+      if (res.data.insertedId) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Enrolled Successfully!',
+          showConfirmButton: false,
+          timer: 2000,
+        })
+      } else {
+        Swal.fire({
+          icon: 'info',
+          title: 'Already enrolled!',
+        })
+      }
+    })
   }
 
   return (
@@ -58,6 +98,10 @@ const CourseDetails = () => {
                   </p>
 
                   <p className=" mt-3">{fltData.description}</p>
+
+                  <button onClick={() => handleEnroll(fltData)} className="btn btn-secondary w-fit">
+                    Enroll Now
+                  </button>
                 </div>
               </div>
 
@@ -66,25 +110,25 @@ const CourseDetails = () => {
                 <div className="card border w-full max-w-sm shadow-2xl rounded-2xl pt-5">
                   <form onSubmit={handleSubmit} className="card-body">
                     <fieldset className="fieldset space-y-3">
-                      <h2 className="text-xl font-semibold text-center mb-2">Try It Out</h2>
-
-                      {/* name */}
-                      <label className=" font-medium">Name</label>
-                      <input
-                        name="name"
-                        type="text"
-                        className="w-full px-4 py-3 bg-black/30 border border-secondary rounded-lg  placeholder-gray-400 focus:ring-2 focus:ring-primary outline-none"
-                        placeholder="Enter your name"
-                        required
-                      />
+                      <h2 className="text-xl font-semibold text-center mb-2">Send Feedback</h2>
 
                       {/* email */}
                       <label className=" font-medium">Email</label>
                       <input
                         name="email"
                         type="email"
-                        className="w-full px-4 py-3 bg-black/30 border border-secondary rounded-lg  placeholder-gray-400 focus:ring-2 focus:ring-primary outline-none"
+                        className="w-full px-4 py-3 border border-secondary rounded-lg  placeholder-gray-400 focus:ring-2 focus:ring-primary outline-none"
                         placeholder="Enter your email"
+                        required
+                      />
+
+                      {/* feedback */}
+                      <label className=" font-medium">Feedback</label>
+                      <textarea
+                        name="Feedback"
+                        className="w-full px-4 py-3 border border-secondary rounded-lg  placeholder-gray-400 focus:ring-2 focus:ring-primary outline-none"
+                        placeholder="Enter your name"
+                        rows={5}
                         required
                       />
 
@@ -98,7 +142,7 @@ const CourseDetails = () => {
 
                       <div className="flex justify-center">
                         <button type="submit" className="btn btn-secondary rounded-full mt-4 w-fit">
-                          Try Now
+                          Send Us
                         </button>
                       </div>
                     </fieldset>

@@ -16,6 +16,8 @@ import Home from './Components/Home'
 import AllCourses from './Components/AllCourses'
 import CourseDetails from './Components/CourseDetails'
 import EditCourse from './Components/EditCourse'
+import Error404 from './Pages/Error404'
+import Loading from './Pages/Loading'
 
 const router = createBrowserRouter([
   {
@@ -25,11 +27,13 @@ const router = createBrowserRouter([
       {
         path: '/',
         loader: () => fetch('https://akm-skillverse-server.vercel.app/courses'),
+        hydrateFallbackElement: <Loading></Loading>,
         Component: Home,
       },
       {
         path: '/allcourses',
         loader: () => fetch('https://akm-skillverse-server.vercel.app/courses'),
+        hydrateFallbackElement: <Loading></Loading>,
         Component: AllCourses,
       },
       {
@@ -58,6 +62,8 @@ const router = createBrowserRouter([
       },
       {
         path: '/editcourse/:id',
+        loader: () => fetch('https://akm-skillverse-server.vercel.app/courses'),
+        hydrateFallbackElement: <Loading></Loading>,
         element: (
           <PrivateRoute>
             <EditCourse></EditCourse>
@@ -79,6 +85,7 @@ const router = createBrowserRouter([
       {
         path: '/coursedetails/:id',
         loader: () => fetch('https://akm-skillverse-server.vercel.app/courses'),
+        hydrateFallbackElement: <Loading></Loading>,
         element: (
           <PrivateRoute>
             <CourseDetails></CourseDetails>
@@ -86,6 +93,10 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: '*',
+    Component: Error404,
   },
 ])
 

@@ -47,7 +47,7 @@ const Register = () => {
       .then((res) => {
         const user = res.user
         setUser(user)
-        console.log(user)
+        // console.log(user)
 
         updateUser({ displayName: name, photoURL: url })
           .then(() => {

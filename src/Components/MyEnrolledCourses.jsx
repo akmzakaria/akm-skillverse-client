@@ -31,7 +31,7 @@ const MyEnrolledCourses = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log('after delete', data)
+            // console.log('after delete', data)
             if (data.deletedCount) {
               Swal.fire({
                 title: 'Deleted!',
@@ -50,6 +50,7 @@ const MyEnrolledCourses = () => {
 
   return (
     <div>
+      <title>AKM SkillVerse - My Enrolled Courses</title>
       <h3 className="text-xl md:text-3xl my-5 font-bold text-center">My Enrolled Courses</h3>
 
       <div className="overflow-x-auto md:px-30">

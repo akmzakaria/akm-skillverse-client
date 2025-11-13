@@ -10,7 +10,7 @@ const PopularCourses = ({ data }) => {
     .sort((a, b) => b.price - a.price)
 
   return (
-    <div>
+    <div data-aos="fade-up">
       <h3 className="text-xl md:text-4xl mt-10 font-bold text-center">Popular Courses</h3>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center md:max-w-[1400px] mx-auto">
@@ -19,7 +19,7 @@ const PopularCourses = ({ data }) => {
             key={course.price}
             className="flex flex-col shadow rounded-xl w-[300px] md:w-[300px] gap-2 p-4 bg-base-200  mt-5"
           >
-            <img className="w-full rounded-2xl" src={course.image_url} />
+            <img className="w-full h-40 rounded-2xl" src={course.image_url} />
             <h3 className="  text-sm font-medium md:text-xl">{course.title}</h3>
             <p className=" text-xs">Price: {course.price} $</p>
 

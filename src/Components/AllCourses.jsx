@@ -45,6 +45,7 @@ const AllCourses = () => {
 
   return (
     <div>
+      <title>AKM SkillVerse - All Courses</title>
       <h3 className="text-xl md:text-4xl mt-10 font-bold text-center">All Courses</h3>
 
       <div className="overflow-x-auto md:px-30">
