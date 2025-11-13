@@ -13,10 +13,11 @@ const AddCourse = () => {
     e.preventDefault()
     const title = e.target.title.value
     const image_url = e.target.image_url.value
-    const price = e.target.price.value
+    const price = Number(e.target.price.value)
     const duration = e.target.duration.value
     const category = e.target.category.value
     const description = e.target.description.value
+    const isFeatured = e.target.isFeatured.value
     // console.log(title, image, price, duration, category, description)
 
     const newCourse = {
@@ -27,6 +28,7 @@ const AddCourse = () => {
       category,
       description,
       email: user.email,
+      isFeatured,
     }
 
     axiosInstance.post('/courses', newCourse).then((data) => {
@@ -126,6 +128,12 @@ const AddCourse = () => {
               placeholder="Category"
               required
             />
+
+            <label className="">isFeatured</label>
+            <select name="isFeatured" className="select w-full" required>
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select>
 
             <label className="">Description</label>
             <textarea

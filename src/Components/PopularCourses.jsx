@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 
 const PopularCourses = ({ data }) => {
   const featuredCourses = data
-    .filter((d) => d.price > 30)
+    .filter((d) => d.isFeatured === true || d.isFeatured === 'true')
     .slice(0, 6)
     .sort((a, b) => b.price - a.price)
 
