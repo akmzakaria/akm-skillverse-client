@@ -1,16 +1,21 @@
-# React + Vite
+# AKM SkillVerse
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Website URL (Live Client):**
+https://akm-skillverse.web.app/
 
-Currently, two official plugins are available:
+AKM SkillVerse is a comprehensive online learning platform where users can explore, enroll in, and manage courses. It is designed to provide a smooth and interactive experience for both learners and instructors.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- **Course Enrollment:** Users can browse courses and enroll in their preferred ones with just a few clicks.
+- **Add New Courses:** Instructors can add new courses with details like title, category, price, duration, and description.
+- **Update & Manage Courses:** Instructors have the ability to update existing course information and manage course availability.
+- **Featured Courses & Popularity:** Highlighted courses are marked as featured, and popular courses are showcased for learners.
+- **User Authentication:** Secure login, registration, and Google Sign-In options, with password reset functionality.
+- **Responsive Design:** Fully responsive layout for seamless experience on desktop, tablet, and mobile devices.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend:** React, Tailwind CSS, DaisyUI
+- **Backend:** Firebase Authentication, Firebase Firestore
+- **Additional Libraries:** React-Toastify, React Router, AOS (Animate on Scroll)
