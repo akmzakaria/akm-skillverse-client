@@ -8,6 +8,7 @@ const MyEnrolledCourses = () => {
   const { user } = use(AuthContext)
   const [courses, setCourses] = useState([])
   const axiosInstance = useAxios()
+  console.log(courses)
 
   useEffect(() => {
     axiosInstance.get(`/enrolled?email=${user.email}`).then((res) => {

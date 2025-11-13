@@ -20,6 +20,7 @@ const AllCourses = () => {
 
     const enrollmentData = {
       courseId: course._id,
+      image_url: course.image_url,
       title: course.title,
       price: course.price,
       email: user.email,
