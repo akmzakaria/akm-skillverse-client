@@ -50,7 +50,7 @@ const AuthProvider = ({ children }) => {
     })
   }
 
-  // Google Login
+  //  Google Login
   const googleSignIn = () => {
     setLoading(true)
     return signInWithPopup(auth, googleProvider).then((res) => {
