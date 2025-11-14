@@ -6,16 +6,16 @@ import Loading from '../Pages/Loading'
 
 const HomeLayout = () => {
   const navigation = useNavigation()
-  const [loading, setLoading] = useState(true)
+  // const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 500)
-    return () => clearTimeout(timer)
-  }, [])
+  // useEffect(() => {
+  //   const timer = setTimeout(() => setLoading(false), 500)
+  //   return () => clearTimeout(timer)
+  // }, [])
 
-  if (loading) {
-    return <Loading></Loading>
-  }
+  // if (loading) {
+  //   return <Loading></Loading>
+  // }
 
   if (navigation.state === 'loading') {
     return <Loading></Loading>
