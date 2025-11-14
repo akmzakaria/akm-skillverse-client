@@ -2,10 +2,11 @@ import React, { use, useState } from 'react'
 import { BiSend } from 'react-icons/bi'
 import { FaStar } from 'react-icons/fa6'
 import { MdEventAvailable, MdOutlinePriceCheck } from 'react-icons/md'
-import { Link, useLoaderData, useParams } from 'react-router'
+import { Link, useLoaderData, useNavigation, useParams } from 'react-router'
 import Swal from 'sweetalert2'
 import useAxios from '../Hooks/useAxios'
 import { AuthContext } from '../Provider/AuthProvider'
+import Loading from '../Pages/Loading'
 
 const CourseDetails = () => {
   const { user } = use(AuthContext)
@@ -60,6 +61,12 @@ const CourseDetails = () => {
         })
       }
     })
+  }
+
+  const navigation = useNavigation()
+
+  if (navigation.state === 'loading') {
+    return <Loading></Loading>
   }
 
   return (

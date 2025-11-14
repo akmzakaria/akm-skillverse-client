@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaStar } from 'react-icons/fa6'
 import { MdEventAvailable } from 'react-icons/md'
-import { Link } from 'react-router'
+import { Link, useNavigation } from 'react-router'
+import Loading from '../Pages/Loading'
 
 const PopularCourses = ({ data }) => {
   const featuredCourses = data
