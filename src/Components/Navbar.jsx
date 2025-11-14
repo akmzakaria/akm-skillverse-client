@@ -1,4 +1,4 @@
-import React, { use } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router'
 import { AuthContext } from '../Provider/AuthProvider'
 import { toast } from 'react-toastify'
@@ -35,6 +35,28 @@ const Navbar = () => {
       )}
     </nav>
   )
+
+  // Theme state
+  const [theme, setTheme] = useState('light')
+
+  // On mount, read theme from localStorage
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme')
+    if (savedTheme) {
+      setTheme(savedTheme)
+      document.documentElement.setAttribute('data-theme', savedTheme)
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light')
+    }
+  }, [])
+
+  // Toggle theme
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light'
+    setTheme(newTheme)
+    localStorage.setItem('theme', newTheme)
+    document.documentElement.setAttribute('data-theme', newTheme)
+  }
 
   const handleLogOut = (e) => {
     e.preventDefault()
@@ -127,19 +149,13 @@ const Navbar = () => {
         {/* theme controller */}
         <div className="mr-1 md:mr-5">
           <label className="toggle text-base-content">
-            <input type="checkbox" value="light" className="theme-controller" />
-
-            <svg aria-label="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <g
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                strokeWidth="2"
-                fill="none"
-                stroke="currentColor"
-              >
-                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-              </g>
-            </svg>
+            <input
+              checked={theme === 'dark'}
+              onChange={toggleTheme}
+              type="checkbox"
+              value="dark"
+              className="theme-controller"
+            />
 
             <svg aria-label="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <g
@@ -160,8 +176,22 @@ const Navbar = () => {
                 <path d="m19.07 4.93-1.41 1.41"></path>
               </g>
             </svg>
+
+            <svg aria-label="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <g
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="2"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+              </g>
+            </svg>
           </label>
         </div>
+
+        {/* login / log out button */}
         {user ? (
           <Link
             onClick={handleLogOut}
