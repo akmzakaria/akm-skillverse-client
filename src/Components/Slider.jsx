@@ -1,13 +1,12 @@
-import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { motion } from 'framer-motion' // eslint-disable-line
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/autoplay'
+import 'swiper/css/effect-coverflow'
 
-import { Navigation } from 'swiper/modules'
-import { Pagination } from 'swiper/modules'
-import { Autoplay } from 'swiper/modules'
+import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules'
 
 import img1 from '../assets/instructor1.jpg'
 import img2 from '../assets/instructor2.jpg'
@@ -17,37 +16,74 @@ import img5 from '../assets/instructor5.jpg'
 
 const Slider = () => {
   return (
-    <div
-      data-aos="fade-up"
-      data-aos-anchor-placement="center-bottom"
-      className="max-w-11/12 mb-20 mt-20 mx-auto"
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.8 }}
+      className="max-w-7xl mb-20 mt-20 mx-auto px-4"
     >
-      <h3 className="font-bold text-xl md:text-5xl mb-10 text-center">Top Instructors</h3>
+      <motion.h3
+        className="font-bold text-2xl md:text-4xl lg:text-5xl mb-12 text-center"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      >
+        Top Instructors
+      </motion.h3>
       <Swiper
-        modules={[Navigation, Pagination, Autoplay]}
+        modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
+        effect="coverflow"
+        grabCursor={true}
+        centeredSlides={true}
+        slidesPerView="auto"
+        coverflowEffect={{
+          rotate: 50,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true,
+        }}
         navigation
         pagination={{ clickable: true }}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         loop={true}
-        className="lg:w-[900px] xl:w-[1000px] rounded-2xl h-75 md:h-[450px]"
+        className="w-full max-w-5xl rounded-2xl"
+        style={{ paddingBottom: '50px' }}
       >
-        <SwiperSlide>
-          <img src={img1} className="w-full h-full object-fit" />
+        <SwiperSlide
+          style={{ width: '300px', height: '400px' }}
+          className="md:w-[400px] md:h-[500px]"
+        >
+          <img src={img1} className="w-full h-full object-cover rounded-xl" alt="Instructor 1" />
         </SwiperSlide>
-        <SwiperSlide>
-          <img src={img2} className="w-full h-full object-fit" />
+        <SwiperSlide
+          style={{ width: '300px', height: '400px' }}
+          className="md:w-[400px] md:h-[500px]"
+        >
+          <img src={img2} className="w-full h-full object-cover rounded-xl" alt="Instructor 2" />
         </SwiperSlide>
-        <SwiperSlide>
-          <img src={img3} className="w-full h-full object-fit" />
+        <SwiperSlide
+          style={{ width: '300px', height: '400px' }}
+          className="md:w-[400px] md:h-[500px]"
+        >
+          <img src={img3} className="w-full h-full object-cover rounded-xl" alt="Instructor 3" />
         </SwiperSlide>
-        <SwiperSlide>
-          <img src={img4} className="w-full h-full object-fit" />
+        <SwiperSlide
+          style={{ width: '300px', height: '400px' }}
+          className="md:w-[400px] md:h-[500px]"
+        >
+          <img src={img4} className="w-full h-full object-cover rounded-xl" alt="Instructor 4" />
         </SwiperSlide>
-        <SwiperSlide>
-          <img src={img5} className="w-full h-full object-fit" />
+        <SwiperSlide
+          style={{ width: '300px', height: '400px' }}
+          className="md:w-[400px] md:h-[500px]"
+        >
+          <img src={img5} className="w-full h-full object-cover rounded-xl" alt="Instructor 5" />
         </SwiperSlide>
       </Swiper>
-    </div>
+    </motion.div>
   )
 }
 

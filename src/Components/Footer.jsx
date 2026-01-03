@@ -1,107 +1,110 @@
-import React from 'react'
 import { Link } from 'react-router'
+import { motion } from 'framer-motion' // eslint-disable-line
 import './Footer.css'
 import { FaFacebook } from 'react-icons/fa6'
 import { BsLinkedin, BsTwitterX } from 'react-icons/bs'
 import { CgMail } from 'react-icons/cg'
 
 const Footer = () => {
+  const footerSections = [
+    {
+      title: 'Company',
+      links: ['About Us', 'Our Mission', 'Contact Sales'],
+    },
+    {
+      title: 'Services',
+      links: ['Courses & Services', 'Customer Stories', 'Buy Courses'],
+    },
+    {
+      title: 'Information',
+      links: ['Privacy Policy', 'Terms & Conditions', 'Join Us'],
+    },
+  ]
+
   return (
-    <div className="bg-base-300 mt-10">
-      <div className="flex md:flex-row flex-col md:justify-around text-center max-w-[1400px] mx-auto gap-8 py-10">
-        <div className="flex-2 flex-col">
-          <div className="flex items-center gap-1 justify-center mb-3">
-            <img className="w-6 md:w-8" src="/logo5.png" alt="" />
-            <h2 className="font-bold ">AKM SkillVerse</h2>
+    <footer className="bg-base-300 mt-20 max-w-7xl mx-auto rounded-2xl mb-10">
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+          {/* Brand Section */}
+          <div className="lg:col-span-1">
+            <div className="flex items-center gap-2 mb-4">
+              <img className="w-8 md:w-10" src="/logo5.png" alt="Logo" />
+              <h2 className="font-bold text-lg md:text-xl">AKM SkillVerse</h2>
+            </div>
+            <p className="text-sm text-base-content/70 leading-relaxed mb-4">
+              A modern online learning platform designed to help learners explore, develop, and
+              master practical skills for the future.
+            </p>
+            {/* Social Links */}
+            <div className="flex gap-3">
+              <a
+                href="#"
+                className="btn btn-circle btn-sm btn-ghost hover:btn-secondary transition-colors"
+              >
+                <BsTwitterX className="text-lg" />
+              </a>
+              <a
+                href="#"
+                className="btn btn-circle btn-sm btn-ghost hover:btn-secondary transition-colors"
+              >
+                <BsLinkedin className="text-lg" />
+              </a>
+              <a
+                href="#"
+                className="btn btn-circle btn-sm btn-ghost hover:btn-secondary transition-colors"
+              >
+                <FaFacebook className="text-xl" />
+              </a>
+              <a
+                href="#"
+                className="btn btn-circle btn-sm btn-ghost hover:btn-secondary transition-colors"
+              >
+                <CgMail className="text-2xl" />
+              </a>
+            </div>
           </div>
 
-          <p className="px-10 text-sm md:text-[1rem] md:px-0">
-            AKM SkillVerse — a modern online learning platform designed to help learners explore,
-            develop, and master practical skills for the future. With interactive courses, expert
-            guidance, and hands-on learning experiences, SkillVerse empowers you to turn knowledge
-            into real-world success.
-          </p>
+          {/* Footer Sections */}
+          {footerSections.map((section, index) => (
+            <div key={index}>
+              <h3 className="font-bold text-base md:text-lg mb-4">{section.title}</h3>
+              <ul className="space-y-2">
+                {section.links.map((link, i) => (
+                  <li key={i}>
+                    <Link
+                      to="#"
+                      className="text-sm text-base-content/70 hover:text-secondary transition-colors inline-block"
+                    >
+                      {link}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <div className="flex-1 flex-col text-sm md:text-[1rem]">
-          <h2 className="font-bold mb-3 ">Company</h2>
-
-          <Link>
-            <p className="mb-2">About Us</p>
-          </Link>
-          <Link>
-            <p className="mb-2">Our Mission</p>
-          </Link>
-          <Link>
-            <p>Contact Saled</p>
-          </Link>
-        </div>
-
-        <div className="flex-1 flex-col text-sm md:text-[1rem]">
-          <h2 className="font-bold mb-3 ">Services</h2>
-
-          <Link>
-            <p className="mb-2">Courses & Services</p>
-          </Link>
-          <Link>
-            <p className="mb-2">Customer Stories</p>
-          </Link>
-          <Link>
-            <p>Buy Courses</p>
-          </Link>
-        </div>
-
-        <div className="flex-1 flex-col text-sm md:text-[1rem]">
-          <h2 className="font-bold mb-3 ">Information</h2>
-
-          <Link>
-            <p className="mb-2">Privacy Policy</p>
-          </Link>
-          <Link>
-            <p className="mb-2">Terms & Conditions</p>
-          </Link>
-          <Link>
-            <p>Join Us</p>
-          </Link>
-        </div>
-
-        <div className="flex-1 flex-col text-sm md:text-[1rem]">
-          <h2 className="font-bold mb-3 ">Social Links</h2>
-
-          <Link>
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <BsTwitterX />
-              <p>x-twitter</p>
+        {/* Bottom Bar */}
+        <div className="border-t border-base-content/10 pt-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-base-content/60">
+              © 2025 AKM SkillVerse. All rights reserved.
+            </p>
+            <div className="flex gap-6 text-sm text-base-content/60">
+              <Link to="#" className="hover:text-secondary transition-colors">
+                Privacy Policy
+              </Link>
+              <Link to="#" className="hover:text-secondary transition-colors">
+                Terms of Service
+              </Link>
+              <Link to="#" className="hover:text-secondary transition-colors">
+                Cookie Policy
+              </Link>
             </div>
-          </Link>
-          <Link>
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <BsLinkedin></BsLinkedin>
-              <p>LinkedIn</p>
-            </div>
-          </Link>
-          <Link>
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <FaFacebook></FaFacebook>
-              <p>FaceBook</p>
-            </div>
-          </Link>
-          <Link>
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <p className="text-xl">
-                <CgMail></CgMail>
-              </p>
-              <p>app.support@gmail.com</p>
-            </div>
-          </Link>
+          </div>
         </div>
       </div>
-      <hr className="border-gray-600 max-w-[1400px] mx-auto" />
-
-      <footer className="p-5 text-xs md:text-sm text-center">
-        © 2025 AKM SkillVerse. All rights reserved.
-      </footer>
-    </div>
+    </footer>
   )
 }
 

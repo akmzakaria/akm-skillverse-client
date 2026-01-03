@@ -1,7 +1,8 @@
-import React, { use } from 'react'
+import { use } from 'react'
+import { motion } from 'framer-motion' // eslint-disable-line
 import { AuthContext } from '../Provider/AuthProvider'
 import useAxios from '../Hooks/useAxios'
-import Swal from 'sweetalert2'
+import toast from 'react-hot-toast'
 import { useNavigation } from 'react-router'
 import Loading from '../Pages/Loading'
 
@@ -34,14 +35,17 @@ const AddCourse = () => {
     }
 
     axiosInstance.post('/courses', newCourse).then((data) => {
-      // console.log(data.data)
       if (data.data.insertedId) {
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Your course has been uploaded!',
-          showConfirmButton: false,
-          timer: 2000,
+        toast.success('Your course has been uploaded!', {
+          duration: 3000,
+          position: 'top-center',
+          style: {
+            background: '#10B981',
+            color: '#fff',
+            fontWeight: '600',
+            borderRadius: '12px',
+            padding: '16px',
+          },
         })
         e.target.reset()
       }
@@ -55,108 +59,205 @@ const AddCourse = () => {
   }
 
   return (
-    <div className="mt-5">
+    <motion.div
+      className="min-h-screen py-8 px-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <title>AKM SkillVerse - Add Course</title>
-      <div className="lg:w-1/2 mx-auto px-10">
-        <form className="" onSubmit={handleAddCourse}>
-          <fieldset className="fieldset">
-            {/* instructor details */}
-            <label className="">Instructor Name</label>
-            <input
-              type="text"
-              name="name"
-              className="input w-full"
-              placeholder="Enter a name"
-              value={user.displayName}
-              required
-            />
 
-            <label className="">Instructor Photo URL</label>
-            <input
-              type="text"
-              name="photo"
-              className="input w-full"
-              placeholder="Enter a Photo URL"
-              value={user.photoURL}
-              required
-            />
+      <div className="max-w-4xl mx-auto">
+        <motion.h1
+          className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          Add New Course
+        </motion.h1>
 
-            <label className="">Email</label>
-            <input
-              type="email"
-              name="email"
-              className="input w-full"
-              placeholder="Enter an email"
-              value={user.email}
-              required
-            />
+        <motion.div
+          className="bg-base-200 rounded-2xl shadow-2xl p-6 md:p-10"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <form onSubmit={handleAddCourse} className="space-y-6">
+            {/* Instructor Details Section */}
+            <div className="space-y-4">
+              <h2 className="text-xl md:text-2xl font-semibold text-secondary mb-4">
+                Instructor Details
+              </h2>
 
-            {/* ------------------ */}
-            <label className="">Title</label>
-            <input
-              type="text"
-              name="title"
-              className="input w-full"
-              placeholder="Enter a title"
-              required
-            />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="label font-medium">
+                    <span className="label-text">Instructor Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    className="input input-bordered w-full bg-base-100 focus:ring-2 focus:ring-secondary"
+                    placeholder="Enter instructor name"
+                    value={user.displayName}
+                    readOnly
+                  />
+                </div>
 
-            <label className="">Image URL</label>
-            <input
-              type="text"
-              name="image_url"
-              className="input w-full"
-              placeholder="Enter an image URL"
-              required
-            />
+                <div>
+                  <label className="label font-medium">
+                    <span className="label-text">Email</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    className="input input-bordered w-full bg-base-100 focus:ring-2 focus:ring-secondary"
+                    placeholder="Enter email"
+                    value={user.email}
+                    readOnly
+                  />
+                </div>
+              </div>
 
-            <label className="">Price</label>
-            <input
-              type="number"
-              name="price"
-              className="input w-full"
-              placeholder="Price"
-              required
-            />
+              <div>
+                <label className="label font-medium">
+                  <span className="label-text">Instructor Photo URL</span>
+                </label>
+                <input
+                  type="text"
+                  name="photo"
+                  className="input input-bordered w-full bg-base-100 focus:ring-2 focus:ring-secondary"
+                  placeholder="Enter photo URL"
+                  value={user.photoURL}
+                  readOnly
+                />
+              </div>
+            </div>
 
-            <label className="">Duration</label>
-            <input
-              type="text"
-              name="duration"
-              className="input w-full"
-              placeholder="Duration"
-              required
-            />
+            <div className="divider"></div>
 
-            <label className="">Category</label>
-            <input
-              type="text"
-              name="category"
-              className="input w-full"
-              placeholder="Category"
-              required
-            />
+            {/* Course Details Section */}
+            <div className="space-y-4">
+              <h2 className="text-xl md:text-2xl font-semibold text-secondary mb-4">
+                Course Details
+              </h2>
 
-            <label className="">isFeatured</label>
-            <select name="isFeatured" className="select w-full" required>
-              <option value="true">True</option>
-              <option value="false">False</option>
-            </select>
+              <div>
+                <label className="label font-medium">
+                  <span className="label-text">Course Title *</span>
+                </label>
+                <input
+                  type="text"
+                  name="title"
+                  className="input input-bordered w-full bg-base-100 focus:ring-2 focus:ring-secondary"
+                  placeholder="e.g., Complete Web Development Bootcamp"
+                  required
+                />
+              </div>
 
-            <label className="">Description</label>
-            <textarea
-              name="description"
-              className="textarea w-full"
-              placeholder="Write about the course"
-              rows="5"
-              required
-            />
+              <div>
+                <label className="label font-medium">
+                  <span className="label-text">Course Image URL *</span>
+                </label>
+                <input
+                  type="text"
+                  name="image_url"
+                  className="input input-bordered w-full bg-base-100 focus:ring-2 focus:ring-secondary"
+                  placeholder="https://example.com/image.jpg"
+                  required
+                />
+              </div>
 
-            <button className="btn btn-neutral mt-4">Add A Course</button>
-          </fieldset>
-        </form>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label className="label font-medium">
+                    <span className="label-text">Price ($) *</span>
+                  </label>
+                  <input
+                    type="number"
+                    name="price"
+                    className="input input-bordered w-full bg-base-100 focus:ring-2 focus:ring-secondary"
+                    placeholder="99"
+                    min="0"
+                    step="0.01"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="label font-medium">
+                    <span className="label-text">Duration *</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="duration"
+                    className="input input-bordered w-full bg-base-100 focus:ring-2 focus:ring-secondary"
+                    placeholder="e.g., 8 weeks"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="label font-medium">
+                    <span className="label-text">Category *</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="category"
+                    className="input input-bordered w-full bg-base-100 focus:ring-2 focus:ring-secondary"
+                    placeholder="e.g., Web Development"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="label font-medium">
+                  <span className="label-text">Featured Course *</span>
+                </label>
+                <select
+                  name="isFeatured"
+                  className="select select-bordered w-full bg-base-100 focus:ring-2 focus:ring-secondary"
+                  required
+                >
+                  <option value="false">No</option>
+                  <option value="true">Yes</option>
+                </select>
+                <label className="label">
+                  <span className="label-text-alt text-base-content/60">
+                    Featured courses appear on the homepage
+                  </span>
+                </label>
+              </div>
+
+              <div>
+                <label className="label font-medium">
+                  <span className="label-text">Course Description *</span>
+                </label>
+                <textarea
+                  name="description"
+                  className="textarea textarea-bordered w-full bg-base-100 focus:ring-2 focus:ring-secondary h-32"
+                  placeholder="Describe what students will learn in this course..."
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-center pt-4">
+              <motion.button
+                type="submit"
+                className="btn btn-secondary btn-lg text-white px-12"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Add Course
+              </motion.button>
+            </div>
+          </form>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter } from 'react-router'
 import { RouterProvider } from 'react-router/dom'
+import { Toaster } from 'react-hot-toast'
 import HomeLayout from './Layout/HomeLayout'
 import MyEnrolledCourses from './Components/MyEnrolledCourses'
 import AddCourse from './Components/AddCourse'
@@ -18,7 +19,8 @@ import CourseDetails from './Components/CourseDetails'
 import EditCourse from './Components/EditCourse'
 import Error404 from './Pages/Error404'
 import Loading from './Pages/Loading'
-import { ToastContainer } from 'react-toastify'
+import AboutUs from './Components/AboutUs'
+import ContactUs from './Components/ContactUs'
 
 const router = createBrowserRouter([
   {
@@ -87,11 +89,15 @@ const router = createBrowserRouter([
         path: '/coursedetails/:id',
         loader: () => fetch('https://akm-skillverse-server.vercel.app/courses'),
         hydrateFallbackElement: <Loading></Loading>,
-        element: (
-          <PrivateRoute>
-            <CourseDetails></CourseDetails>
-          </PrivateRoute>
-        ),
+        element: <CourseDetails></CourseDetails>,
+      },
+      {
+        path: '/about',
+        Component: AboutUs,
+      },
+      {
+        path: '/contact',
+        Component: ContactUs,
       },
     ],
   },
@@ -105,7 +111,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
       <RouterProvider router={router}></RouterProvider>
-      <ToastContainer></ToastContainer>
+      <Toaster />
     </AuthProvider>
   </StrictMode>
 )

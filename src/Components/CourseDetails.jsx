@@ -1,9 +1,9 @@
-import React, { use, useState } from 'react'
+import { use, useState } from 'react'
+import { motion } from 'framer-motion' // eslint-disable-line
 import { BiSend } from 'react-icons/bi'
-import { FaStar } from 'react-icons/fa6'
-import { MdEventAvailable, MdOutlinePriceCheck } from 'react-icons/md'
+import { MdOutlinePriceCheck } from 'react-icons/md'
 import { Link, useLoaderData, useNavigation, useParams } from 'react-router'
-import Swal from 'sweetalert2'
+import toast from 'react-hot-toast'
 import useAxios from '../Hooks/useAxios'
 import { AuthContext } from '../Provider/AuthProvider'
 import Loading from '../Pages/Loading'
@@ -30,9 +30,16 @@ const CourseDetails = () => {
 
   const handleEnroll = (course) => {
     if (!user?.email) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Please log in to enroll!',
+      toast.error('Please log in to enroll!', {
+        duration: 3000,
+        position: 'top-center',
+        style: {
+          background: '#F59E0B',
+          color: '#fff',
+          fontWeight: '600',
+          borderRadius: '12px',
+          padding: '16px',
+        },
       })
       return
     }
@@ -46,18 +53,29 @@ const CourseDetails = () => {
     }
 
     axiosInstance.post('/enrolled', enrollmentData).then((res) => {
-      // console.log(res.data)
       if (res.data.insertedId) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Enrolled Successfully!',
-          showConfirmButton: false,
-          timer: 2000,
+        toast.success('Enrolled Successfully!', {
+          duration: 3000,
+          position: 'top-center',
+          style: {
+            background: '#10B981',
+            color: '#fff',
+            fontWeight: '600',
+            borderRadius: '12px',
+            padding: '16px',
+          },
         })
       } else {
-        Swal.fire({
-          icon: 'info',
-          title: 'Already enrolled!',
+        toast('Already enrolled!', {
+          duration: 3000,
+          position: 'top-center',
+          style: {
+            background: '#3B82F6',
+            color: '#fff',
+            fontWeight: '600',
+            borderRadius: '12px',
+            padding: '16px',
+          },
         })
       }
     })
@@ -70,106 +88,164 @@ const CourseDetails = () => {
   }
 
   return (
-    <div>
-      <div className={''}>
-        <main>
-          <div className="min-h-screen pb-5">
-            <div className="max-w-5xl mx-auto">
-              <title>AKM SkillVerse - Course Details</title>
-              {/* toy details */}
-              <div className="flex md:flex-row flex-col items-center md:gap-10 gap-5 p-5 md:p-15">
-                <img
-                  className="rounded-lg object-cover h-60 w-60 md:h-80 md:w-80 shadow-lg"
-                  src={fltData.image_url}
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+      <div className="min-h-screen pb-8 px-4">
+        <div className="max-w-6xl mx-auto">
+          <title>AKM SkillVerse - Course Details</title>
+
+          {/* Course details */}
+          <motion.div
+            className="flex md:flex-row flex-col items-center md:items-start md:gap-10 gap-6 p-6 md:p-10 bg-base-200 rounded-2xl shadow-xl mt-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <motion.img
+              className="rounded-2xl object-cover h-64 w-64 md:h-96 md:w-96 shadow-2xl"
+              src={fltData.image_url}
+              alt={fltData.title}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+            />
+
+            <div className="flex flex-col gap-4 md:gap-5 flex-1">
+              <motion.h3
+                className="font-bold text-center md:text-start text-2xl md:text-4xl"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                {fltData.title}
+              </motion.h3>
+
+              <motion.p
+                className="text-sm md:text-base text-center md:text-left font-semibold"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                Category: <span className="font-medium text-secondary">{fltData.category}</span>
+              </motion.p>
+
+              <motion.div
+                className="flex gap-6 md:gap-10 mt-2"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                <div className="flex flex-col gap-2 bg-base-100 p-4 rounded-xl shadow-md">
+                  <div className="flex gap-2 items-center text-secondary">
+                    <MdOutlinePriceCheck className="text-3xl md:text-4xl" />
+                    <p className="text-sm md:text-base">Price</p>
+                  </div>
+                  <h1 className="font-extrabold text-2xl md:text-3xl">${fltData.price}</h1>
+                </div>
+              </motion.div>
+
+              <motion.p
+                className="font-semibold text-sm md:text-base"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
+                Duration: <span className="text-secondary font-medium">{fltData.duration}</span>
+              </motion.p>
+
+              <motion.p
+                className="mt-3 text-sm md:text-base leading-relaxed"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
+                {fltData.description}
+              </motion.p>
+
+              <motion.button
+                onClick={() => handleEnroll(fltData)}
+                className="btn btn-secondary btn-lg text-white w-fit mt-4"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+              >
+                Enroll Now
+              </motion.button>
+            </div>
+          </motion.div>
+
+          {/* Feedback form */}
+          <motion.div
+            className="flex justify-center px-2 mt-12"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <div className="card border border-secondary/30 w-full max-w-md shadow-2xl rounded-2xl bg-base-200">
+              <form onSubmit={handleSubmit} className="card-body">
+                <h2 className="text-xl md:text-2xl font-bold text-center mb-4">Send Feedback</h2>
+
+                <label className="font-medium text-sm md:text-base">Email</label>
+                <input
+                  name="email"
+                  type="email"
+                  className="w-full px-4 py-3 border border-secondary/50 rounded-lg placeholder-gray-400 focus:ring-2 focus:ring-secondary outline-none bg-base-100"
+                  placeholder="Enter your email"
+                  required
                 />
 
-                <div className="flex flex-col gap-3 md:gap-5">
-                  <h3 className="font-bold text-center md:text-start text-2xl md:text-3xl">
-                    {fltData.title}
-                  </h3>
-                  <p className="text-sm text-center md:text-left font-bold">
-                    Category: <span className="font-medium text-secondary">{fltData.category}</span>
-                  </p>
+                <label className="font-medium text-sm md:text-base mt-3">Feedback</label>
+                <textarea
+                  name="Feedback"
+                  className="w-full px-4 py-3 border border-secondary/50 rounded-lg placeholder-gray-400 focus:ring-2 focus:ring-secondary outline-none bg-base-100"
+                  placeholder="Enter your feedback"
+                  rows={5}
+                  required
+                />
 
-                  <div className="flex  gap-6 md:gap-10 mt-2">
-                    <div className="flex flex-col md:gap-2">
-                      <div className="flex gap-1 items-center text-secondary">
-                        <MdOutlinePriceCheck className="text-4xl" />
-                        <p className="text-sm">Price</p>
-                      </div>
-                      <h1 className="font-extrabold md:text-3xl">{fltData.price} $</h1>
-                    </div>
-                  </div>
+                {success && (
+                  <motion.div
+                    className="text-green-500 flex gap-2 items-center justify-center font-medium mt-2"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <BiSend />
+                    {success}
+                  </motion.div>
+                )}
 
-                  <p className="font-bold">
-                    Duration: <span className="text-secondary font-medium">{fltData.duration}</span>
-                  </p>
-
-                  <p className=" mt-3">{fltData.description}</p>
-
-                  <button onClick={() => handleEnroll(fltData)} className="btn btn-secondary w-fit">
-                    Enroll Now
-                  </button>
+                <div className="flex justify-center">
+                  <motion.button
+                    type="submit"
+                    className="btn btn-secondary text-white rounded-full mt-4 px-8"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Send Us
+                  </motion.button>
                 </div>
-              </div>
-
-              {/* form  */}
-              <div className="flex justify-center px-2 mt-10">
-                <div className="card border w-full max-w-sm shadow-2xl rounded-2xl pt-5">
-                  <form onSubmit={handleSubmit} className="card-body">
-                    <fieldset className="fieldset space-y-3">
-                      <h2 className="text-xl font-semibold text-center mb-2">Send Feedback</h2>
-
-                      {/* email */}
-                      <label className=" font-medium">Email</label>
-                      <input
-                        name="email"
-                        type="email"
-                        className="w-full px-4 py-3 border border-secondary rounded-lg  placeholder-gray-400 focus:ring-2 focus:ring-primary outline-none"
-                        placeholder="Enter your email"
-                        required
-                      />
-
-                      {/* feedback */}
-                      <label className=" font-medium">Feedback</label>
-                      <textarea
-                        name="Feedback"
-                        className="w-full px-4 py-3 border border-secondary rounded-lg  placeholder-gray-400 focus:ring-2 focus:ring-primary outline-none"
-                        placeholder="Enter your feedback"
-                        rows={5}
-                        required
-                      />
-
-                      {/* success message */}
-                      {success && (
-                        <div className="text-green-500 flex gap-1 text-center font-medium mt-2 transition-all">
-                          <BiSend />
-                          {success}
-                        </div>
-                      )}
-
-                      <div className="flex justify-center">
-                        <button type="submit" className="btn btn-secondary rounded-full mt-4 w-fit">
-                          Send Us
-                        </button>
-                      </div>
-                    </fieldset>
-                  </form>
-                </div>
-              </div>
-
-              {/* back button */}
-              <div className="text-center mt-6">
-                <p className="text-gray-400">Or</p>
-                <Link to={-1} className="btn btn-outline btn-secondary rounded-full mt-2">
-                  Go Back
-                </Link>
-              </div>
+              </form>
             </div>
-          </div>
-        </main>
+          </motion.div>
+
+          {/* Back button */}
+          <motion.div
+            className="text-center mt-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            <p className="text-base-content/60 mb-2">Or</p>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link to={-1} className="btn btn-outline btn-secondary rounded-full">
+                Go Back
+              </Link>
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

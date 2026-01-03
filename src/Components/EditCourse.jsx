@@ -1,8 +1,9 @@
 import { useLoaderData, useNavigate, useParams } from 'react-router'
+import { motion } from 'framer-motion' // eslint-disable-line
 import useAxios from '../Hooks/useAxios'
 import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../Provider/AuthProvider'
-import Swal from 'sweetalert2'
+import toast from 'react-hot-toast'
 import Loading from '../Pages/Loading'
 
 const EditCourse = () => {
@@ -42,27 +43,43 @@ const EditCourse = () => {
       const res = await instance.patch(`/myaddedcourses/${id}`, updatedCourse)
 
       if (res.data.modifiedCount) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Updated!',
-          text: 'Course updated successfully!',
-          timer: 1500,
-          showConfirmButton: false,
+        toast.success('Course updated successfully!', {
+          duration: 3000,
+          position: 'top-center',
+          style: {
+            background: '#10B981',
+            color: '#fff',
+            fontWeight: '600',
+            borderRadius: '12px',
+            padding: '16px',
+          },
         })
         navigate('/myaddedcourses')
       } else {
-        Swal.fire({
-          icon: 'info',
-          title: 'No changes made!',
-          text: "You didn't update anything.",
+        toast('No changes made!', {
+          duration: 3000,
+          position: 'top-center',
+          style: {
+            background: '#3B82F6',
+            color: '#fff',
+            fontWeight: '600',
+            borderRadius: '12px',
+            padding: '16px',
+          },
         })
       }
     } catch (error) {
       console.error('Update error:', error)
-      Swal.fire({
-        icon: 'error',
-        title: 'Error!',
-        text: 'Failed to update course!',
+      toast.error('Failed to update course!', {
+        duration: 3000,
+        position: 'top-center',
+        style: {
+          background: '#EF4444',
+          color: '#fff',
+          fontWeight: '600',
+          borderRadius: '12px',
+          padding: '16px',
+        },
       })
     }
   }
@@ -72,63 +89,137 @@ const EditCourse = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 p-6 shadow-lg rounded-lg border">
-      <h2 className="text-2xl font-bold mb-4 text-center">Edit Course</h2>
+    <motion.div
+      className="min-h-screen py-8 px-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <title>AKM SkillVerse - Edit Course</title>
 
-      <form onSubmit={handleUpdate} className="space-y-4">
-        <input
-          name="title"
-          defaultValue={fltData.title}
-          placeholder="Course Title"
-          className="input input-bordered w-full"
-          required
-        />
+      <div className="max-w-4xl mx-auto">
+        <motion.h1
+          className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          Edit Course
+        </motion.h1>
 
-        <input
-          name="image_url"
-          defaultValue={fltData.image_url}
-          placeholder="Image URL"
-          className="input input-bordered w-full"
-          required
-        />
+        <motion.div
+          className="bg-base-200 rounded-2xl shadow-2xl p-6 md:p-10"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <form onSubmit={handleUpdate} className="space-y-6">
+            <div>
+              <label className="label font-medium">
+                <span className="label-text">Course Title *</span>
+              </label>
+              <input
+                name="title"
+                defaultValue={fltData.title}
+                placeholder="e.g., Complete Web Development Bootcamp"
+                className="input input-bordered w-full bg-base-100 focus:ring-2 focus:ring-secondary"
+                required
+              />
+            </div>
 
-        <input
-          name="price"
-          type="number"
-          defaultValue={fltData.price}
-          placeholder="Enter a price"
-          className="input input-bordered w-full"
-          required
-        />
+            <div>
+              <label className="label font-medium">
+                <span className="label-text">Course Image URL *</span>
+              </label>
+              <input
+                name="image_url"
+                defaultValue={fltData.image_url}
+                placeholder="https://example.com/image.jpg"
+                className="input input-bordered w-full bg-base-100 focus:ring-2 focus:ring-secondary"
+                required
+              />
+            </div>
 
-        <input
-          name="duration"
-          defaultValue={fltData.duration}
-          placeholder="Course duration"
-          className="input input-bordered w-full"
-          required
-        />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label className="label font-medium">
+                  <span className="label-text">Price ($) *</span>
+                </label>
+                <input
+                  name="price"
+                  type="number"
+                  defaultValue={fltData.price}
+                  placeholder="99"
+                  min="0"
+                  step="0.01"
+                  className="input input-bordered w-full bg-base-100 focus:ring-2 focus:ring-secondary"
+                  required
+                />
+              </div>
 
-        <input
-          name="category"
-          defaultValue={fltData.category}
-          placeholder="Enter a category"
-          className="input input-bordered w-full"
-          required
-        />
+              <div>
+                <label className="label font-medium">
+                  <span className="label-text">Duration *</span>
+                </label>
+                <input
+                  name="duration"
+                  defaultValue={fltData.duration}
+                  placeholder="e.g., 8 weeks"
+                  className="input input-bordered w-full bg-base-100 focus:ring-2 focus:ring-secondary"
+                  required
+                />
+              </div>
 
-        <textarea
-          name="description"
-          defaultValue={fltData.description}
-          placeholder="Course Description"
-          className="textarea textarea-bordered w-full"
-          rows="4"
-          required
-        />
+              <div>
+                <label className="label font-medium">
+                  <span className="label-text">Category *</span>
+                </label>
+                <input
+                  name="category"
+                  defaultValue={fltData.category}
+                  placeholder="e.g., Web Development"
+                  className="input input-bordered w-full bg-base-100 focus:ring-2 focus:ring-secondary"
+                  required
+                />
+              </div>
+            </div>
 
-        <button className="btn btn-primary w-full mt-4">Update Course</button>
-      </form>
-    </div>
+            <div>
+              <label className="label font-medium">
+                <span className="label-text">Course Description *</span>
+              </label>
+              <textarea
+                name="description"
+                defaultValue={fltData.description}
+                placeholder="Describe what students will learn in this course..."
+                className="textarea textarea-bordered w-full bg-base-100 focus:ring-2 focus:ring-secondary h-32"
+                required
+              />
+            </div>
+
+            <div className="flex gap-4 justify-center pt-4">
+              <motion.button
+                type="submit"
+                className="btn btn-secondary btn-lg text-white px-12"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Update Course
+              </motion.button>
+              <motion.button
+                type="button"
+                onClick={() => navigate('/myaddedcourses')}
+                className="btn btn-outline btn-lg px-12"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Cancel
+              </motion.button>
+            </div>
+          </form>
+        </motion.div>
+      </div>
+    </motion.div>
   )
 }
 

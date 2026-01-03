@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
+import { motion } from 'framer-motion' // eslint-disable-line
 import Banner from './Banner'
 import PopularCourses from './PopularCourses'
 import { useLoaderData, useNavigation } from 'react-router'
@@ -7,12 +8,14 @@ import Slider from './Slider'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import Loading from '../Pages/Loading'
+import { Blogs, Categories, FAQ, Highlights, Newsletter } from './AKMSkillVerseSections'
+import Testimonials from './Testimonials'
 
 const Home = () => {
   const data = useLoaderData()
 
   useEffect(() => {
-    AOS.init({ duration: 1000, once: false })
+    AOS.init({ duration: 1000, once: true })
   }, [])
 
   const navigation = useNavigation()
@@ -22,12 +25,23 @@ const Home = () => {
   }
 
   return (
-    <div>
-      <Banner></Banner>
-      <PopularCourses data={data}></PopularCourses>
-      <StatsSection></StatsSection>
-      <Slider></Slider>
-    </div>
+    <motion.div
+      className="max-w-7xl mx-auto"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Banner />
+      <PopularCourses data={data} />
+      <Categories />
+      <Highlights />
+      <StatsSection />
+      <Slider />
+      <Testimonials />
+      <Blogs />
+      <FAQ />
+      <Newsletter />
+    </motion.div>
   )
 }
 

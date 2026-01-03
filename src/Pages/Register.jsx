@@ -1,7 +1,8 @@
-import React, { use, useState } from 'react'
+import { use, useState } from 'react'
+import { motion } from 'framer-motion' // eslint-disable-line
 import { LuEye, LuEyeClosed } from 'react-icons/lu'
 import { Link, useNavigate } from 'react-router'
-import { toast } from 'react-toastify'
+import toast from 'react-hot-toast'
 import { AuthContext } from '../Provider/AuthProvider'
 
 const Register = () => {
@@ -60,27 +61,29 @@ const Register = () => {
           })
 
         toast.success('Registered Successfully!', {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: 'dark',
+          duration: 3000,
+          position: 'top-center',
+          style: {
+            background: '#10B981',
+            color: '#fff',
+            fontWeight: '600',
+            borderRadius: '12px',
+            padding: '16px',
+          },
         })
         setLoading(false)
       })
       .catch(() => {
-        // console.log(err.message);
-        // console.log(err.data);
-        toast.warn('Unable to register. Please try again!', {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: 'dark',
+        toast.error('Unable to register. Please try again!', {
+          duration: 3000,
+          position: 'top-center',
+          style: {
+            background: '#EF4444',
+            color: '#fff',
+            fontWeight: '600',
+            borderRadius: '12px',
+            padding: '16px',
+          },
         })
       })
   }
@@ -94,122 +97,163 @@ const Register = () => {
         setUser(user)
         // console.log(res.user);
         toast.success('Signed In Successfully!', {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: 'dark',
+          duration: 3000,
+          position: 'top-center',
+          style: {
+            background: '#10B981',
+            color: '#fff',
+            fontWeight: '600',
+            borderRadius: '12px',
+            padding: '16px',
+          },
         })
         navigate('/')
       })
       .catch((err) => {
         console.log(err.message)
-        toast.warn('Unable to signin. Please try again!', {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: 'dark',
+        toast.error('Unable to signin. Please try again!', {
+          duration: 3000,
+          position: 'top-center',
+          style: {
+            background: '#EF4444',
+            color: '#fff',
+            fontWeight: '600',
+            borderRadius: '12px',
+            padding: '16px',
+          },
         })
       })
   }
 
   return (
-    <div>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
       <title>AKM SkillVerse - Register</title>
       <div className="hero min-h-screen">
         <div className="hero-content flex-col">
-          <div className="text-center lg:text-left">
-            <h1 className="text-3xl font-bold  ">Register now!</h1>
-          </div>
-          <div className="card w-full max-w-sm shrink-0 shadow-2xl bg-black/15 backdrop-blur-lg border rounded-2xl border-blue-500/30 ">
-            <div className="card-body">
+          <motion.h1
+            className="text-3xl md:text-4xl font-bold mb-6"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Register now!
+          </motion.h1>
+          <motion.div
+            className="card w-full max-w-md shrink-0 shadow-2xl bg-base-200/80 backdrop-blur-lg border rounded-2xl border-secondary/30 p-6 md:p-8"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <div className="card-body p-0">
               {/* form */}
-              <form className="flex flex-col gap-3" onSubmit={handleRegister}>
+              <form className="flex flex-col gap-4" onSubmit={handleRegister}>
                 {/* name */}
-                <label className="  ">Name</label>
-                <input
+                <label className="font-medium">Name</label>
+                <motion.input
                   name="name"
                   type="text"
-                  className="input bg-transparent border border-gray-600   placeholder-gray-400 rounded-lg"
+                  className="input bg-base-100 border border-secondary/50 rounded-lg placeholder-gray-400 focus:ring-2 focus:ring-secondary outline-none"
                   placeholder="Enter Your Name"
                   required
+                  whileFocus={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
                 />
 
                 {/* photoURL */}
-                <label className="  ">Photo URL</label>
-                <input
+                <label className="font-medium">Photo URL</label>
+                <motion.input
                   name="url"
                   type="text"
-                  className="input bg-transparent border border-gray-600   placeholder-gray-400 rounded-lg"
+                  className="input bg-base-100 border border-secondary/50 rounded-lg placeholder-gray-400 focus:ring-2 focus:ring-secondary outline-none"
                   placeholder="Enter Your PhotoURL"
+                  whileFocus={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
                 />
 
                 {/* email */}
-                <label className=" ">Email</label>
-                <input
+                <label className="font-medium">Email</label>
+                <motion.input
                   name="email"
                   type="email"
-                  className="input bg-transparent border border-gray-600   placeholder-gray-400 rounded-lg"
+                  className="input bg-base-100 border border-secondary/50 rounded-lg placeholder-gray-400 focus:ring-2 focus:ring-secondary outline-none"
                   placeholder="Enter Your Email"
                   required
+                  whileFocus={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
                 />
 
                 {/* password */}
-                <label className="  ">Password</label>
+                <label className="font-medium">Password</label>
                 <div className="relative">
-                  <input
+                  <motion.input
                     onChange={handlePassChange}
                     value={password}
                     name="password"
                     type={show ? 'text' : 'password'}
-                    className="input bg-transparent border border-gray-600   placeholder-gray-400 rounded-lg"
+                    className="input bg-base-100 border border-secondary/50 rounded-lg placeholder-gray-400 w-full focus:ring-2 focus:ring-secondary outline-none"
                     placeholder="Enter Your Password"
+                    whileFocus={{ scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
                   />
-                  <button
+                  <motion.button
                     onClick={handleToggleEye}
-                    className="cursor-pointer absolute top-3 right-5  "
+                    className="cursor-pointer absolute top-3 right-3"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                   >
                     {show ? <LuEyeClosed /> : <LuEye />}
-                  </button>
+                  </motion.button>
                 </div>
 
                 <div>
-                  <label className="label  ">
-                    <input name="terms" type="checkbox" className="checkbox" />
-                    Accept Our Terms & Conditions!
+                  <label className="label cursor-pointer justify-start gap-2">
+                    <input name="terms" type="checkbox" className="checkbox checkbox-secondary" />
+                    <span className="text-sm">Accept Our Terms & Conditions!</span>
                   </label>
                 </div>
 
                 {/* error messages */}
-                <div className="text-sm ">
-                  {error?.uppercase && (
-                    <p className="text-primary">Must include at least one uppercase letter!</p>
-                  )}
-                  {error?.lowercase && (
-                    <p className="text-primary">Must include at least one lowercase letter!</p>
-                  )}
-                  {error?.six_char && (
-                    <p className="text-primary">Must be at least six characters!</p>
-                  )}
-                </div>
+                {password && (
+                  <motion.div
+                    className="text-sm space-y-1"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {error?.uppercase && (
+                      <p className="text-error flex items-center gap-1">
+                        Must include at least one uppercase letter!
+                      </p>
+                    )}
+                    {error?.lowercase && (
+                      <p className="text-error flex items-center gap-1">
+                        Must include at least one lowercase letter!
+                      </p>
+                    )}
+                    {error?.six_char && (
+                      <p className="text-error flex items-center gap-1">
+                        Must be at least six characters!
+                      </p>
+                    )}
+                  </motion.div>
+                )}
 
-                <button
+                <motion.button
                   disabled={!isPasswordValid}
                   type="submit"
-                  className="text-white rounded-full text-sm cursor-pointer font-bold h-10 bg-secondary w-full disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="btn btn-secondary text-white rounded-full font-bold w-full mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  whileHover={{ scale: isPasswordValid ? 1.02 : 1 }}
+                  whileTap={{ scale: isPasswordValid ? 0.98 : 1 }}
                 >
                   Register
-                </button>
+                </motion.button>
 
                 {/* google login */}
-                <button
+                <motion.button
                   onClick={handleSignInGoogle}
-                  className="btn rounded-full text-black bg-white border-[#e5e5e5] w-full mt-2 flex items-center justify-center gap-2"
+                  className="btn rounded-full text-black bg-white border-[#e5e5e5] w-full mt-2 flex items-center justify-center gap-2 hover:bg-gray-100"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   <svg
                     aria-label="Google logo"
@@ -236,20 +280,23 @@ const Register = () => {
                     </g>
                   </svg>
                   Login with Google
-                </button>
+                </motion.button>
               </form>
 
-              <p className="  mt-4 text-center">
+              <p className="mt-6 text-sm text-center">
                 Already have an account?{' '}
-                <Link className="underline text-blue-700" to="/login">
+                <Link
+                  className="underline text-secondary font-semibold hover:text-primary"
+                  to="/login"
+                >
                   Login Now
                 </Link>
               </p>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
