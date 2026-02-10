@@ -29,6 +29,7 @@ import ContactSales from './Pages/ContactSales'
 import TermsConditions from './Pages/TermsConditions'
 import PrivacyPolicy from './Pages/PrivacyPolicy'
 import CookiePolicy from './Pages/CookiePolicy'
+import UserProfile from './Pages/UserProfile'
 
 const router = createBrowserRouter([
   {
@@ -138,6 +139,14 @@ const router = createBrowserRouter([
       {
         path: '/cookie-policy',
         Component: CookiePolicy,
+      },
+      {
+        path: '/profile',
+        element: (
+          <PrivateRoute>
+            <UserProfile></UserProfile>
+          </PrivateRoute>
+        ),
       },
     ],
   },

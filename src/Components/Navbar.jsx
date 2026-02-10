@@ -30,6 +30,9 @@ const Navbar = () => {
       {user && (
         <>
           <li>
+            <NavLink to={'/profile'}>My Profile</NavLink>
+          </li>
+          <li>
             <NavLink to={'/myenrolledcourses'}>My Enrolled Courses</NavLink>
           </li>
           <li>
@@ -181,65 +184,117 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end gap-2">
-          {/* theme controller */}
-          <motion.div
-            className="mr-1 md:mr-3"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <label className="toggle text-base-content">
-              <input
-                checked={theme === 'dark'}
-                onChange={toggleTheme}
-                type="checkbox"
-                value="dark"
-                className="theme-controller"
-              />
-
-              <svg aria-label="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <g
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <circle cx="12" cy="12" r="4"></circle>
-                  <path d="M12 2v2"></path>
-                  <path d="M12 20v2"></path>
-                  <path d="m4.93 4.93 1.41 1.41"></path>
-                  <path d="m17.66 17.66 1.41 1.41"></path>
-                  <path d="M2 12h2"></path>
-                  <path d="M20 12h2"></path>
-                  <path d="m6.34 17.66-1.41 1.41"></path>
-                  <path d="m19.07 4.93-1.41 1.41"></path>
-                </g>
-              </svg>
-
-              <svg aria-label="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <g
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-                </g>
-              </svg>
-            </label>
-          </motion.div>
-
-          {/* login / log out button */}
+          {/* Profile Dropdown for logged-in users */}
           {user ? (
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link
-                onClick={handleLogOut}
-                className="btn btn-outline btn-primary text-xs md:text-sm font-bold rounded-full px-3 md:px-6"
+            <div className="dropdown dropdown-end">
+              <motion.div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
-                Log Out
-              </Link>
-            </motion.div>
+                <div className="w-10 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
+                  {user?.photoURL ? (
+                    <img src={user.photoURL} alt={user.displayName || 'User'} />
+                  ) : (
+                    <div className="bg-secondary text-white flex items-center justify-center text-xl font-bold">
+                      {user?.displayName?.charAt(0)?.toUpperCase() ||
+                        user?.email?.charAt(0)?.toUpperCase() ||
+                        'U'}
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[100] mt-3 w-52 p-2 shadow-xl"
+              >
+                <li className="menu-title px-4 py-2">
+                  <span className="text-sm font-semibold">{user?.displayName || 'User'}</span>
+                  <span className="text-xs text-gray-500">{user?.email}</span>
+                </li>
+                <div className="divider pr-3 my-0"></div>
+                <li>
+                  <Link to="/profile" className="flex items-center gap-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      />
+                    </svg>
+                    My Profile
+                  </Link>
+                </li>
+                <li>
+                  <button onClick={toggleTheme} className="flex items-center gap-2">
+                    {theme === 'dark' ? (
+                      <>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <circle cx="12" cy="12" r="4"></circle>
+                          <path d="M12 2v2"></path>
+                          <path d="M12 20v2"></path>
+                          <path d="m4.93 4.93 1.41 1.41"></path>
+                          <path d="m17.66 17.66 1.41 1.41"></path>
+                          <path d="M2 12h2"></path>
+                          <path d="M20 12h2"></path>
+                          <path d="m6.34 17.66-1.41 1.41"></path>
+                          <path d="m19.07 4.93-1.41 1.41"></path>
+                        </svg>
+                        Light Mode
+                      </>
+                    ) : (
+                      <>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                        </svg>
+                        Dark Mode
+                      </>
+                    )}
+                  </button>
+                </li>
+                <div className="divider pr-3 my-0"></div>
+                <li>
+                  <Link onClick={handleLogOut} className="flex items-center gap-2 text-error">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                      />
+                    </svg>
+                    Log Out
+                  </Link>
+                </li>
+              </ul>
+            </div>
           ) : (
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link
