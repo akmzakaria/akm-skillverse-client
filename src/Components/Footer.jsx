@@ -1,5 +1,4 @@
 import { Link } from 'react-router'
-import { motion } from 'framer-motion' // eslint-disable-line
 import './Footer.css'
 import { FaFacebook } from 'react-icons/fa6'
 import { BsLinkedin, BsTwitterX } from 'react-icons/bs'
@@ -9,20 +8,32 @@ const Footer = () => {
   const footerSections = [
     {
       title: 'Company',
-      links: ['About Us', 'Our Mission', 'Contact Sales'],
+      links: [
+        { name: 'About Us', path: '/about' },
+        { name: 'Our Mission', path: '/our-mission' },
+        { name: 'Contact Sales', path: '/contact-sales' },
+      ],
     },
     {
       title: 'Services',
-      links: ['Courses & Services', 'Customer Stories', 'Buy Courses'],
+      links: [
+        { name: 'Courses & Services', path: '/allcourses' },
+        { name: 'Customer Stories', path: '/customer-stories' },
+        { name: 'Buy Courses', path: '/buy-courses' },
+      ],
     },
     {
       title: 'Information',
-      links: ['Privacy Policy', 'Terms & Conditions', 'Join Us'],
+      links: [
+        { name: 'Privacy Policy', path: '/privacy-policy' },
+        { name: 'Terms & Conditions', path: '/terms-conditions' },
+        { name: 'Join Us', path: '/join-us' },
+      ],
     },
   ]
 
   return (
-    <footer className="bg-base-300 mt-20 max-w-7xl mx-auto rounded-2xl mb-10">
+    <footer className="bg-base-300 mt-20 max-w-7xl mx-auto md:rounded-2xl md:mb-10">
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Brand Section */}
@@ -72,10 +83,10 @@ const Footer = () => {
                 {section.links.map((link, i) => (
                   <li key={i}>
                     <Link
-                      to="#"
+                      to={link.path}
                       className="text-sm text-base-content/70 hover:text-secondary transition-colors inline-block"
                     >
-                      {link}
+                      {link.name}
                     </Link>
                   </li>
                 ))}
@@ -91,13 +102,13 @@ const Footer = () => {
               © 2025 AKM SkillVerse. All rights reserved.
             </p>
             <div className="flex gap-6 text-sm text-base-content/60">
-              <Link to="#" className="hover:text-secondary transition-colors">
+              <Link to="/privacy-policy" className="hover:text-secondary transition-colors">
                 Privacy Policy
               </Link>
-              <Link to="#" className="hover:text-secondary transition-colors">
+              <Link to="/terms-conditions" className="hover:text-secondary transition-colors">
                 Terms of Service
               </Link>
-              <Link to="#" className="hover:text-secondary transition-colors">
+              <Link to="/cookie-policy" className="hover:text-secondary transition-colors">
                 Cookie Policy
               </Link>
             </div>

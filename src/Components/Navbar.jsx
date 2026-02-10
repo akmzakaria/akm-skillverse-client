@@ -159,8 +159,7 @@ const Navbar = () => {
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.6 }}
             />
-            <span className="hidden sm:inline">AKM SkillVerse</span>
-            <span className="sm:hidden">AKM</span>
+            <span className="sm:inline">AKM SkillVerse</span>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">

@@ -1,6 +1,40 @@
 import { MdEmail, MdPhone, MdLocationOn } from 'react-icons/md'
+import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 const ContactUs = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  })
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    })
+  }
+
+  const handleSend = (e) => {
+    e.preventDefault()
+    // toast.success('Message sent successfully! We will get back to you soon.')
+
+    toast.success('Message sent successfully!', {
+      duration: 3000,
+      position: 'top-center',
+      style: {
+        background: '#10B981',
+        color: '#fff',
+        fontWeight: '600',
+        borderRadius: '12px',
+        padding: '16px',
+      },
+    })
+
+    setFormData({ name: '', email: '', message: '' })
+  }
+
   return (
     <section className="py-20 ">
       <div className="max-w-6xl mx-auto px-4">
@@ -45,12 +79,19 @@ const ContactUs = () => {
           </div>
 
           {/* Contact Form */}
-          <form className=" backdrop-blur p-8 rounded-2xl shadow-lg space-y-5">
+          <form
+            onSubmit={handleSend}
+            className=" backdrop-blur p-8 rounded-2xl shadow-lg space-y-5"
+          >
             <div>
               <label className="block text-sm font-medium mb-1">Your Name</label>
               <input
                 type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
                 placeholder="Enter your name"
+                required
                 className="w-full p-3 rounded border focus:outline-none focus:ring-2 focus:ring-secondary"
               />
             </div>
@@ -59,7 +100,11 @@ const ContactUs = () => {
               <label className="block text-sm font-medium mb-1">Your Email</label>
               <input
                 type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="Enter your email"
+                required
                 className="w-full p-3 rounded border focus:outline-none focus:ring-2 focus:ring-secondary"
               />
             </div>
@@ -68,7 +113,11 @@ const ContactUs = () => {
               <label className="block text-sm font-medium mb-1">Message</label>
               <textarea
                 rows="4"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
                 placeholder="Write your message here..."
+                required
                 className="w-full p-3 rounded border focus:outline-none focus:ring-2 focus:ring-secondary"
               ></textarea>
             </div>

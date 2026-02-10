@@ -102,7 +102,7 @@ export const Blogs = () => {
   ]
 
   return (
-    <section className="py-12">
+    <section className="py-12 px-2">
       <h2 className="text-2xl font-bold mb-6">Latest Blogs</h2>
       <div className="grid md:grid-cols-2 gap-6">
         {blogs.map((blog, index) => (
@@ -121,7 +121,7 @@ export const Blogs = () => {
 ========================= */
 export const Newsletter = () => {
   return (
-    <section className="p-12 bg-secondary text-white rounded-xl">
+    <section className="p-12 bg-secondary text-white md:rounded-xl">
       <h2 className="text-2xl font-bold mb-4">Subscribe to our Newsletter</h2>
       <p className="mb-6">Get updates about new courses and offers</p>
       <form className="flex flex-col md:flex-row gap-4">
@@ -141,7 +141,11 @@ export const Newsletter = () => {
 /* =========================
    FAQ
 ========================= */
+import { useState } from 'react'
+
 export const FAQ = () => {
+  const [openIndex, setOpenIndex] = useState(null)
+
   const faqs = [
     {
       q: 'How can I enroll in a course?',
@@ -157,14 +161,48 @@ export const FAQ = () => {
     },
   ]
 
+  const toggleFAQ = (index) => {
+    setOpenIndex(openIndex === index ? null : index)
+  }
+
   return (
-    <section className="py-12">
-      <h2 className="text-2xl font-bold mb-6">FAQ</h2>
-      <div className="space-y-4">
+    <section className="py-12 px-2">
+      <h2 className="text-2xl font-bold mb-6 text-center">Frequently Asked Questions</h2>
+      <div className="max-w-3xl mx-auto space-y-3">
         {faqs.map((item, index) => (
-          <div key={index} className="p-4 rounded-xl shadow">
-            <h4 className="font-semibold">{item.q}</h4>
-            <p className="text-gray-600 mt-2">{item.a}</p>
+          <div
+            key={index}
+            className="border border-gray-200 rounded-lg overflow-hidden bg-base-100 shadow-sm hover:shadow-md transition-shadow"
+          >
+            <button
+              onClick={() => toggleFAQ(index)}
+              className="w-full p-5 text-left flex justify-between items-center hover:bg-base-200 transition-colors"
+              aria-expanded={openIndex === index}
+            >
+              <h4 className="font-semibold text-lg pr-4">{item.q}</h4>
+              <svg
+                className={`w-5 h-5 flex-shrink-0 transition-transform duration-200 ${
+                  openIndex === index ? 'rotate-180' : ''
+                }`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+            <div
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+              }`}
+            >
+              <p className="px-5 pb-5 text-gray-600 leading-relaxed">{item.a}</p>
+            </div>
           </div>
         ))}
       </div>

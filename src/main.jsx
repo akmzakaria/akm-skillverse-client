@@ -21,6 +21,14 @@ import Error404 from './Pages/Error404'
 import Loading from './Pages/Loading'
 import AboutUs from './Components/AboutUs'
 import ContactUs from './Components/ContactUs'
+import CustomerStories from './Pages/CustomerStories'
+import OurMission from './Pages/OurMission'
+import BuyCourses from './Pages/BuyCourses'
+import JoinUs from './Pages/JoinUs'
+import ContactSales from './Pages/ContactSales'
+import TermsConditions from './Pages/TermsConditions'
+import PrivacyPolicy from './Pages/PrivacyPolicy'
+import CookiePolicy from './Pages/CookiePolicy'
 
 const router = createBrowserRouter([
   {
@@ -98,6 +106,38 @@ const router = createBrowserRouter([
       {
         path: '/contact',
         Component: ContactUs,
+      },
+      {
+        path: '/customer-stories',
+        Component: CustomerStories,
+      },
+      {
+        path: '/our-mission',
+        Component: OurMission,
+      },
+      {
+        path: '/buy-courses',
+        Component: BuyCourses,
+      },
+      {
+        path: '/join-us',
+        Component: JoinUs,
+      },
+      {
+        path: '/contact-sales',
+        Component: ContactSales,
+      },
+      {
+        path: '/terms-conditions',
+        Component: TermsConditions,
+      },
+      {
+        path: '/privacy-policy',
+        Component: PrivacyPolicy,
+      },
+      {
+        path: '/cookie-policy',
+        Component: CookiePolicy,
       },
     ],
   },
