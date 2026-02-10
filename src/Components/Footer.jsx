@@ -50,25 +50,25 @@ const Footer = () => {
             <div className="flex gap-3">
               <a
                 href="#"
-                className="btn btn-circle btn-sm btn-ghost hover:btn-secondary transition-colors"
+                className="btn btn-circle btn-sm btn-ghost hover:bg-black hover:text-white transition-colors"
               >
                 <BsTwitterX className="text-lg" />
               </a>
               <a
                 href="#"
-                className="btn btn-circle btn-sm btn-ghost hover:btn-secondary transition-colors"
+                className="btn btn-circle btn-sm btn-ghost hover:bg-[#0077B5] hover:text-white transition-colors"
               >
                 <BsLinkedin className="text-lg" />
               </a>
               <a
                 href="#"
-                className="btn btn-circle btn-sm btn-ghost hover:btn-secondary transition-colors"
+                className="btn btn-circle btn-sm btn-ghost hover:bg-[#1877F2] hover:text-white transition-colors"
               >
                 <FaFacebook className="text-xl" />
               </a>
               <a
                 href="#"
-                className="btn btn-circle btn-sm btn-ghost hover:btn-secondary transition-colors"
+                className="btn btn-circle btn-sm btn-ghost hover:bg-red-500 hover:text-white transition-colors"
               >
                 <CgMail className="text-2xl" />
               </a>
